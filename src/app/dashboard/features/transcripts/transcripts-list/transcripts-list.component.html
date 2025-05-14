@@ -1,0 +1,15 @@
+<app-loading-splash *ngIf="loading; else ready"></app-loading-splash>
+
+<ng-template #ready>
+  <div class="list-group">
+    <a *ngFor="let session of sessions" [routerLink]="'/dashboard/session/'+ session.SessionId"
+       [queryParams]="{view: 'transcript'}" class=" list-group-item list-group-item-action">
+      <app-transcripts-list-item
+                                 (exportTranscript)="exportTranscript.emit($event)"
+                                 [session]="session">
+      </app-transcripts-list-item>
+
+    </a>
+
+  </div>
+</ng-template>

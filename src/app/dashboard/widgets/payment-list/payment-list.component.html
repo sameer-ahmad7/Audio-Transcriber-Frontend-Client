@@ -1,0 +1,25 @@
+<ul class="list-group" *ngIf="PaymentMethods$ | async as paymentMethods">
+  <li class="list-group-item" *ngFor="let paymentMethod of paymentMethods">
+    <input
+      [(ngModel)]="SelectedCard"
+      type="radio"
+      name="card"
+      [value]="paymentMethod"
+    />
+    **** **** **** {{ paymentMethod.card.last4 }}
+  </li>
+</ul>
+
+<div class="d-flex flex-row-reverse mt-1">
+  <button
+    [disabled]="!SelectedCard"
+    (click)="ChangeCard()"
+    type="button"
+    class="ml-1 btn btn-success"
+  >
+    Change Card
+  </button>
+  <button type="button" (click)="AddCard()" class="btn btn-primary">
+    Add Card
+  </button>
+</div>

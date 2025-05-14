@@ -1,0 +1,21 @@
+@import 'colors';
+
+.btn-tool {
+  height: 36px;
+  margin: 0;
+  padding: 0 16px 0 16px;
+  // border: 1px solid $th-lt-toolbtn-border;
+  // background-color: $th-lt-toolbtn-background;
+  // color: $th-lt-text;
+  // color: $th-lt-toolbtn-foreground;
+  &.sm {
+    height: 18px;
+    padding: 0 8px 0 8px;
+    font-size: 0.65rem;
+  }
+  &:hover {
+    // border-color: $th-lt-toolbtn-hover-border;
+    // background-color: $th-lt-toolbtn-hover-background;
+    // color: $th-lt-toolbtn-hover-foreground;
+  }
+}

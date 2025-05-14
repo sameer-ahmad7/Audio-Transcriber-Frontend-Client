@@ -1,0 +1,5 @@
+<ng-container [ngSwitch]="tenant.Type">
+    <fa-duotone-icon *ngSwitchCase="'company'" [icon]="['fad', 'building']" [size]="size" [fixedWidth]="true" primaryColor="#8B4513" primaryOpacity="0.8" secondaryColor="white"></fa-duotone-icon>
+    <fa-duotone-icon *ngSwitchCase="'personal'" [icon]="['fad', 'house']" [size]="size" [fixedWidth]="true" primaryColor="#8B4513" secondaryColor="#8B4513"  ></fa-duotone-icon>
+    <fa-duotone-icon *ngSwitchDefault [icon]="['fad', 'question-circle']" [size]="size" [fixedWidth]="true" ></fa-duotone-icon>
+</ng-container>

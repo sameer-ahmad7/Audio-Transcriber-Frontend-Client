@@ -1,0 +1,23 @@
+@import "styles";
+
+:host {
+  background-color: #444;
+  width: 100vw;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.nav-item.active {
+  border-bottom: 4px solid $clr-blue-1;
+}
+
+.auth-error {
+  border: 1px solid $clr-red-2;
+  border-radius: 4px;
+  padding: 1rem 2rem;
+  margin-bottom: 4rem;
+  background-color: $clr-grey-4;
+  color: $clr-white-1;
+}

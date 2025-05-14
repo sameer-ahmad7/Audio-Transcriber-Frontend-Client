@@ -1,0 +1,35 @@
+<app-loading-splash *ngIf="sessionsLoading; else ready"></app-loading-splash>
+
+<ng-template #ready>
+  <h1 class="page-header">
+    <app-session-label [session]="session" [label]="'name'"></app-session-label>
+  </h1>
+
+  <ul class="nav-tabs" #nav="ngbNav" ngbNav [(activeId)]="view">
+    <li [ngbNavItem]="'info'">
+      <a ngbNavLink>Session</a>
+      <ng-template ngbNavContent>
+        <app-info-view
+                       (transcribe)="transcribe.emit($event)"
+                       (exportTranscript)="exportTranscript.emit($event)"
+                       [session]="session"></app-info-view>
+      </ng-template>
+    </li>
+    <li [ngbNavItem]="'transcript'" *ngIf="transcriptExists">
+      <a ngbNavLink>Transcript <fa-duotone-icon *ngIf="transcriptLoading" [spin]=" true" [icon]="['fad', 'sync-alt']">
+        </fa-duotone-icon>
+      </a>
+      <ng-template ngbNavContent>
+        <ng-container *ngTemplateOutlet="transcriptTab"></ng-container>
+      </ng-template>
+    </li>
+  </ul>
+  <div [ngbNavOutlet]="nav"></div>
+</ng-template>
+
+<ng-template #transcriptTab>
+  <app-loading-splash *ngIf="transcriptLoading; else transcriptReady"></app-loading-splash>
+  <ng-template #transcriptReady>
+    <app-transcript-view [sessionId]="session.SessionId" (snippet)="snippet.emit($event)" [transcript]="transcript"></app-transcript-view>
+  </ng-template>
+</ng-template>

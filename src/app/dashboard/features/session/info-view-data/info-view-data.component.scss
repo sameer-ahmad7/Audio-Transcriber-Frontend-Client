@@ -1,0 +1,13 @@
+@import "styles";
+
+.info-table {
+  th {
+    font-weight: 400;
+    color: $light-black;
+    text-align: right;
+  }
+  td {
+    color: $black;
+    text-align: left;
+  }
+}

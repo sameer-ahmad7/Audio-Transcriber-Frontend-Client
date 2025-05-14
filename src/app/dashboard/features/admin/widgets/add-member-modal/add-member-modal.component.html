@@ -1,0 +1,53 @@
+<div class="modal-header">
+  <h4 class="modal-title d-flex flex-row align-items-center">
+     <app-tenant-type-icon [tenant]="tenant"></app-tenant-type-icon>
+    <span>{{tenant.Name}}</span>
+
+  </h4>
+  <button type="button" class="btn btn-small btn-outline-danger shadow-none border-0" aria-label="Close" (click)="Dismiss()">
+    <fa-icon [icon]="['fas', 'times']"></fa-icon>
+  </button>
+</div>
+<div class="modal-body px-0">
+  <h6 class="px-2">Add Tenant Members</h6>
+  <ng-container [ngSwitch]="(AvailableUsers$|async).length == 0">
+    <ng-container *ngSwitchCase="true">
+      <div class="d-flex flex-column justify-content-center align-items-center">
+        <fa-duotone-icon [size]="'3x'" [icon]="['fad', 'filter']" [secondaryColor]="'#3498DB'"></fa-duotone-icon>
+        <span class="text-muted color-blue-1">NO USERS TO ADD!</span>
+      </div>
+    </ng-container>
+    <ng-container *ngSwitchDefault>
+      <ul class="list-group list-group-flush">
+        <li class="list-group-item d-flex flex-column" *ngFor="let user of AvailableUsers$|async" (click)="ToggleSelectUser(user, true)">
+          <span>{{user.FirstName}} {{user.LastName}}</span>
+          <small class="text-muted">{{user.Email}}</small>
+        </li>
+      </ul>
+    </ng-container>
+  </ng-container>
+</div>
+<div class="modal-body px-0">
+  <h6 class="px-2">Selected Users</h6>
+  <div class="list-group border-2">
+    <button class="list-group-item list-group-item-action d-flex flex-row" *ngFor="let item of SelectedItems$|async">
+      <div class="d-flex flex-column flex-grow-1">
+        <span>{{item.User.FirstName}} {{item.User.LastName}}</span>
+        <small class="text-muted">{{item.User.Email}}</small>
+      </div>
+      <div class="d-flex flex-row align-self-center">
+        <button class="btn btn-sm shadow-none" (click)="ToggleMaintainer(item)">
+          <ng-container [ngSwitch]="item.SelectedRoles.Maintainer">
+            <fa-icon *ngSwitchCase="false" [icon]="['fal', 'user-cog']" [styles]="{'color': 'silver'}"></fa-icon>
+            <fa-duotone-icon *ngSwitchCase="true" [icon]="['fad', 'user-cog']" primaryColor="limegreen"></fa-duotone-icon>
+          </ng-container>
+        </button>
+        <button class="btn btn-sm btn-outline-primary "  (click)="ToggleSelectUser(item.User, false)"><small>Remove</small> </button>
+      </div>
+    </button>  
+  </div>
+</div>
+<div class="modal-footer">
+  <button *ngIf="(SelectedItems$|async).length > 0" class="btn btn-success" [disabled]="(SelectedItems$|async).length == 0" (click)="AddMembers()">Add Members</button>
+  <button type="button" class="btn btn-outline-dark" (click)="Dismiss()">Close</button>
+</div>

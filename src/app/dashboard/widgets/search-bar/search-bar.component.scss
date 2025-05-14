@@ -1,0 +1,10 @@
+.example-full-width {
+  width: 100%;
+  line-height: normal !important;
+  font-size: 1rem !important;
+  font-family: inherit !important;
+}
+
+.example-full-width ::ng-deep .mat-form-field-flex > .mat-form-field-infix {
+  padding: 0 0 0.6em !important;
+}

@@ -1,0 +1,30 @@
+<app-search-bar
+  (search)="OnSearchTags($event)"
+  [sessionLoading]="DisplayLoadingSessions$ | async"
+  [currentTennant]="TennantId$ | async"
+></app-search-bar>
+
+<div class="row">
+  <div class="col-6">
+    <h1 class="page-header">Recordings</h1>
+  </div>
+  <div class="col-2">
+    <app-star-toggle
+      [Starred]="this.IsStarred$ | async"
+      (toggle)="OnToggleStar($event)"
+    ></app-star-toggle>
+  </div>
+</div>
+
+<app-recordings-view
+  (exportTranscript)="OnExportTranscript($event)"
+  (transcribe)="OnTranscribe($event)"
+  (dropFiles)="OnDropFiles($event)"
+  [sessionsLoading]="DisplayLoadingSessions$ | async"
+  [allSessions]="DisplaySessions$ | async"
+  [readySessions]="ReadyToTranscribeSessions$ | async"
+  [finishedSessions]="TranscribedSessions$ | async"
+  [workingSessions]="TranscribingSessions$ | async"
+  [errorSessions]="ErrorSessions$ | async"
+>
+</app-recordings-view>

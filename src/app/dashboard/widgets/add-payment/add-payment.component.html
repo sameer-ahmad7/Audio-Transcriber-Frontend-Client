@@ -1,0 +1,26 @@
+<form novalidate (ngSubmit)="CreateToken()" [formGroup]="ChargeForm">
+  <div style="margin-top: 16px">
+    <ngx-stripe-card
+      (change)="OnChange($event)"
+      [options]="CardOptions"
+    ></ngx-stripe-card>
+  </div>
+  <div id="card-errors"></div>
+  <button
+    [disabled]="!ValidCardDetails || (Loading$ | async)"
+    class="mt-2 btn btn-sm btn-success float-right save-btn"
+    type="submit"
+  >
+    <ng-container *ngIf="Loading$ | async">
+      <fa-duotone-icon
+        class="float-left"
+        [icon]="['fad', 'spinner']"
+        [fixedWidth]="true"
+        [pulse]="true"
+      >
+      </fa-duotone-icon>
+    </ng-container>
+
+    Save
+  </button>
+</form>

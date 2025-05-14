@@ -1,0 +1,31 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-10">
+      <ng-container *ngTemplateOutlet="dataTable"></ng-container>
+    </div>
+    <div class="col-md-2">
+      <ng-container *ngTemplateOutlet="editTools"></ng-container>
+    </div>
+  </div>
+</div>
+
+<ng-template #dataTable>
+  <table class="table table-borderless table-sm info-table">
+    <tbody>
+      <tr>
+        <th scope="row">Name</th>
+        <td>{{sessionName()}}</td>
+      </tr>
+      <tr>
+        <th scope="row">Project</th>
+        <td>{{projectName()}}</td>
+      </tr>
+      <tr>
+        <th scope="row">Recording Duration</th>
+        <td>{{recordingTime()}}</td>
+      </tr>
+    </tbody>
+  </table>
+</ng-template>
+
+<ng-template #editTools></ng-template>

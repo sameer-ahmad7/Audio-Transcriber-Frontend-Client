@@ -1,0 +1,39 @@
+<div class="modal-header">
+  <h5 class="modal-title">Edit Session</h5>
+  <button
+    type="button"
+    class="close"
+    (click)="modal.dismiss()"
+    aria-label="Close"
+  >
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<div class="modal-body">
+  <form class="w-100" [formGroup]="editSessionForm">
+    <div class="form-group required">
+      <label for="reelName">Name</label>
+      <input
+        type="text"
+        placeholder="Session Name"
+        class="form-control"
+        id="sessionName"
+        formControlName="Name"
+        required
+      />
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-secondary" (click)="modal.dismiss()">
+        Cancel
+      </button>
+      <button
+        [disabled]="editSessionForm.invalid"
+        type="button"
+        class="btn btn-success"
+        (click)="EditSession()"
+      >
+        Save
+      </button>
+    </div>
+  </form>
+</div>

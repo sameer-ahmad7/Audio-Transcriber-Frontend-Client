@@ -1,0 +1,125 @@
+<div class="card compose-card">
+  <div class="card-body">
+    <h5 class="card-title">{{ Reel?.Name || "Sizzle Reel" }}</h5>
+    <ng-container *ngIf="!Reel; else editReel">
+      <ng-content *ngTemplateOutlet="createReel"></ng-content>
+    </ng-container>
+    <ng-template #editReel>
+      <ng-container *ngTemplateOutlet="reelSnippets"></ng-container>
+      <ng-container *ngTemplateOutlet="editReelFooter"></ng-container>
+    </ng-template>
+  </div>
+</div>
+
+<ng-template #reelSnippets>
+  <mat-accordion cdkDropList (cdkDropListDropped)="Drop($event)">
+    <mat-expansion-panel
+      *ngFor="let snippet of Snippets; let i = index"
+      cdkDrag
+    >
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          {{ snippet.Title }}
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+      <div class="form-group">
+        <input
+          [value]="snippet.Title"
+          (blur)="ChangeSnippetName($event.target.value, i)"
+          type="text"
+          placeholder="Snippet Name"
+          class="form-control"
+        />
+      </div>
+      <mat-divider></mat-divider>
+      <p class="mt-2">{{ snippet.SnippetMetadata?.Text }}</p>
+    </mat-expansion-panel>
+  </mat-accordion>
+</ng-template>
+
+<ng-template #createReel>
+  <form class="w-100" [formGroup]="newReelForm">
+    <div class="form-group required">
+      <label for="reelName">Name</label>
+      <input
+        type="text"
+        placeholder="Reel Name"
+        class="form-control"
+        id="reelName"
+        formControlName="name"
+        required
+      />
+    </div>
+    <div class="form-group required">
+      <label for="reelNote">Notes</label>
+      <input
+        type="text"
+        placeholder="Reel Notes"
+        class="form-control"
+        id="reelNotes"
+        required
+        formControlName="notes"
+      />
+    </div>
+
+    <ng-container *ngTemplateOutlet="reelSnippets"></ng-container>
+
+    <ng-container *ngTemplateOutlet="createReelFooter"></ng-container>
+  </form>
+</ng-template>
+
+<ng-template #editReelFooter>
+  <div class="d-flex flex-row-reverse mt-3 form-group">
+    <ng-container [ngSwitch]="ReelCreating">
+      <button (click)="UpsertReel(Snippets)" class="btn btn-success ml-1">
+        <fa-duotone-icon
+          *ngSwitchCase="true"
+          [icon]="['fad', 'spinner']"
+          [fixedWidth]="true"
+          [pulse]="true"
+        >
+        </fa-duotone-icon>
+        Add
+      </button>
+    </ng-container>
+
+    <button
+      [disabled]="ReelCreating"
+      (click)="CancelReel()"
+      class="btn btn-danger"
+    >
+      Cancel
+    </button>
+  </div>
+</ng-template>
+
+<ng-template #createReelFooter>
+  <div class="d-flex flex-row-reverse mt-3 form-group">
+    <ng-container [ngSwitch]="ReelCreating">
+      <button
+        (click)="UpsertReel(Snippets)"
+        [disabled]="!newReelForm.valid"
+        type="submit"
+        class="btn btn-success ml-1"
+      >
+        <fa-duotone-icon
+          *ngSwitchCase="true"
+          [icon]="['fad', 'spinner']"
+          [fixedWidth]="true"
+          [pulse]="true"
+        >
+        </fa-duotone-icon>
+
+        Create
+      </button>
+    </ng-container>
+
+    <button
+      [disabled]="ReelCreating"
+      (click)="CancelReel()"
+      class="btn btn-danger"
+    >
+      Cancel
+    </button>
+  </div>
+</ng-template>

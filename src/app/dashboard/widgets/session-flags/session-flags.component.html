@@ -1,0 +1,72 @@
+<div class="d-flex status-icons">
+  <div>
+    <fa-icon [icon]="['fal', 'folder-open']"></fa-icon>
+    <app-session-label [session]="session" [label]="'project'"></app-session-label>
+  </div>
+
+  <ng-container [ngSwitch]="GetGeneralState(session)">
+    <div *ngSwitchCase="GeneralState.NoMedia">
+      <fa-icon [icon]="['fas', 'upload']" [fixedWidth]="true"></fa-icon>
+      No Media
+    </div>
+    <div *ngSwitchCase="GeneralState.StartingMediaUpload">
+      <fa-duotone-icon [icon]="['fad', 'cloud-upload-alt']" [fixedWidth]="true"></fa-duotone-icon>
+      Starting Media Upload
+    </div>
+    <div *ngSwitchCase="GeneralState.UploadingMedia">
+      <fa-duotone-icon [icon]="['fad', 'cloud-upload-alt']" [fixedWidth]="true"></fa-duotone-icon>
+      Uploading Media
+    </div>
+    <div *ngSwitchCase="GeneralState.FinishingMediaUpload">
+      <fa-duotone-icon [icon]="['fad', 'cloud-upload-alt']" [fixedWidth]="true"></fa-duotone-icon>
+      Finishing Media Upload
+    </div>
+    <div *ngSwitchCase="GeneralState.MediaUploaded">
+      <fa-duotone-icon [icon]="['fad', 'spinner']" [fixedWidth]="true" [pulse]="true"></fa-duotone-icon>
+      Processing Media File
+    </div>
+    <div *ngSwitchCase="GeneralState.MediaUploadFailed">
+      <fa-duotone-icon [icon]="['fad', 'exclamation-square']" [fixedWidth]="true"></fa-duotone-icon>
+      Upload Failed: {{session.Error}}
+    </div>
+    <div *ngSwitchCase="GeneralState.ReadyToTranscribe" class="color-warning-dk">
+      <fa-duotone-icon [icon]="['fad', 'check-circle']" [fixedWidth]="true" secondaryColor="rgb(143,115,5)"
+                       primaryColor="ghostwhite">
+      </fa-duotone-icon>
+      Ready To transcribe
+    </div>
+    <div *ngSwitchCase="GeneralState.TranscriptionInit" class="color-warning-dk">
+      <fa-duotone-icon [icon]="['fad', 'check-circle']" [fixedWidth]="true" secondaryColor="rgb(143,115,5)"
+                       primaryColor="ghostwhite">
+      </fa-duotone-icon>
+      Transcription Initializing
+    </div>
+
+    <div *ngSwitchCase="GeneralState.TranscriptionStarting" class="color-warning-dk">
+      <fa-duotone-icon [icon]="['fad', 'check-circle']" [fixedWidth]="true" secondaryColor="rgb(143,115,5)"
+                       primaryColor="ghostwhite">
+      </fa-duotone-icon>
+      Transcription Starting
+    </div>
+
+    <div *ngSwitchCase="GeneralState.TranscriptionRunning" class="color-light-blue">
+      <fa-duotone-icon [icon]="['fad', 'spinner']" [pulse]="true" [fixedWidth]="true" secondaryColor="#0080ff"
+                       primaryColor="ghostwhite">
+      </fa-duotone-icon>
+      Transcription Running
+    </div>
+
+    <div *ngSwitchCase="GeneralState.TranscriptionFailed" class="color-warning-dk">
+      <fa-duotone-icon [icon]="['fad', 'exclamation-square']" [fixedWidth]="true"></fa-duotone-icon>
+      transcription Failed: {{session.Error}}
+    </div>
+
+    <div *ngSwitchCase="GeneralState.TranscriptionFinished" class="color-green">
+      <fa-duotone-icon [icon]="['fad', 'check-circle']" [fixedWidth]="true" secondaryColor="#5dbb00"
+                       primaryColor="ghostwhite">
+      </fa-duotone-icon>
+      Transcription Complete
+    </div>
+
+  </ng-container>
+</div>

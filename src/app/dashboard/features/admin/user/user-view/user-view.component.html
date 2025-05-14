@@ -1,0 +1,81 @@
+<ng-container [ngSwitch]="loading">
+    <app-loading-splash *ngSwitchCase="true"></app-loading-splash>
+    <ng-container *ngSwitchDefault>
+        <ng-content *ngTemplateOutlet="tplLoaded"></ng-content>
+    </ng-container>
+</ng-container>
+
+<ng-template #tplLoaded>
+    <div class="card">
+        <div class="card-body">
+            <ng-content *ngTemplateOutlet="tplCardHeader"></ng-content>
+            <ng-content *ngTemplateOutlet="tplDetailsPanel"></ng-content>
+        </div>
+        <div class="card-footer d-flex" *ngIf="editing">
+            <div class="flex-grow-1"></div>
+            <button  class="btn btn-outline-secondary" tileTool (click)="setEditMode(false)">Cancel</button>
+            <button  class="btn btn-outline-success" tileTool (click)="save()">Save</button>
+        </div>
+    </div>
+</ng-template>
+
+<ng-template #tplCardHeader>
+    <div class="card-title">
+        <app-tile>
+            <app-user-icon tileIcon [size]="'4x'"></app-user-icon>
+            <h3 class="mb-0 pb-0" tileTitle>{{user.FirstName}} {{user.LastName}}</h3>
+            <h5 class="mb-0 pb-0" tileCaption>Profile</h5>
+            <button *ngIf="!editing" class="btn btn-outline-secondary" tileTool (click)="setEditMode(true)">Edit</button>
+            <fa-duotone-icon tileFlag *ngIf="Is""Admin(user)" ngbTooltip=""" Administrator" [icon]="['fad', 'user-crown']" primaryColor="silver" secondaryColor="#fd6a02" swapOpacity="true"></fa-duotone-icon>
+        </app-tile>
+    </div>
+</ng-template>
+
+<ng-template #tplDetailsPanel>
+    <div>
+        <div class="profile-panel">
+            <h1>Identity</h1>
+            <div class="panel-row">
+                <div class="panel-col">
+                    <span class="text-muted">Name</span>
+                    <strong>{{user.FirstName}} {{user.LastName}}</strong>
+                </div>
+                <div class="panel-col">
+                    <span class="text-muted">First Name</span>
+                    <strong>{{user.FirstName}}</strong>
+                </div>
+                <div class="panel-col">
+                    <span class="text-muted">Last Name</span>
+                    <strong>{{user.FirstName}}</strong>
+                </div>
+            </div>
+            <!-- email row -->
+            <div class="panel-row">
+                <div class="panel-col">
+                    <span class="text-muted">Email</span>
+                    <strong>{{user.Email}}</strong>
+                </div>
+                <div class="panel-col">
+                    <span class="text-muted">ID</span>
+                    <strong>{{user.UserId}}</strong>
+                </div>
+                <div class="panel-col"></div>
+            </div>
+        </div>
+        <div class="profile-panel">
+            <h1>Permissions</h1>
+            <div class="panel-row">
+                <div class="panel-col">
+                    <div class="d-flex align-items-center" style="gap: 6px;">
+                        <toggle-switch [on]="Is""Admin(user)" [disabled]="!editing">
+                            <span toggleOn>"" Admin</span>
+                            <span toggleOff>Not "" Admin</span>
+                        </toggle-switch>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</ng-template>
+
+

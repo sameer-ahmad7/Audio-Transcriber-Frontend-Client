@@ -1,0 +1,223 @@
+<div appFileDrop (FdFileDrop)="Drop($event)" class="modal-wrapper">
+  <div class="modal-header">
+    <h4 class="modal-title">Upload Session Recordings</h4>
+    <button
+      type="button"
+      class="close shadow-none border-0"
+      aria-label="Close"
+      (click)="Cancel()"
+    >
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body d-flex">
+    <ng-container *ngTemplateOutlet="tplProject"></ng-container>
+    <div class="mx-5 gutter"></div>
+    <ng-container *ngTemplateOutlet="tplFiles"></ng-container>
+  </div>
+  <div class="modal-footer">
+    <button
+      type="button"
+      class="btn"
+      [disabled]="!Valid()"
+      [ngClass]="Valid() ? 'btn-success' : 'btn-outline-dark'"
+      (click)="Submit()"
+    >
+      <fa-duotone-icon
+        [icon]="['fad', 'upload']"
+        [fixedWidth]="true"
+      ></fa-duotone-icon>
+      Upload
+      <span *ngIf="ActiveProject() != undefined">
+        To
+        <fa-duotone-icon
+          [icon]="['fad', ActiveProject().New ? 'folder-plus' : 'folder']"
+        ></fa-duotone-icon>
+        {{ ActiveProject().Project.Name }}
+      </span>
+    </button>
+  </div>
+</div>
+
+<ng-template #tplProject>
+  <div class="d-flex flex-column">
+    <h5>Select Project</h5>
+    <ul
+      ngbNav
+      #projectNav="ngbNav"
+      class="nav-tabs"
+      [(activeId)]="activeTabProject"
+    >
+      <li [ngbNavItem]="'existing'">
+        <a ngbNavLink>Projects</a>
+        <ng-template ngbNavContent>
+          <ng-container *ngTemplateOutlet="tplSelectProject"></ng-container>
+        </ng-template>
+      </li>
+      <li [ngbNavItem]="'new'">
+        <a ngbNavLink>
+          <fa-icon [icon]="['far', 'plus']"></fa-icon> New Project
+        </a>
+        <ng-template ngbNavContent>
+          <ng-container *ngTemplateOutlet="tplCreateProject"></ng-container>
+        </ng-template>
+      </li>
+    </ul>
+    <div [ngbNavOutlet]="projectNav"></div>
+  </div>
+</ng-template>
+
+<ng-template #tplFiles>
+  <div
+    class="content-container flex-grow-1 d-flex flex-column"
+    [ngSwitch]="files.length > 0"
+  >
+    <h5 class="align-self-begin">Files</h5>
+    <div *ngSwitchCase="true" class="flex-grow-1 d-flex flex-column">
+      <div class="file-list-header d-flex">
+        <span>{{ files.length }} Files</span>
+        <span><strong>Size: </strong>{{ TotalFileSize() | bytes }}</span>
+        <span
+          ><strong>Project: </strong>
+          {{ ActiveProjectName("-") }}
+        </span>
+      </div>
+
+      <ul class="list-group list-group-flush file-list">
+        <li
+          class="list-group-item d-flex flex-column p-0"
+          *ngFor="let file of files; let idx = index"
+        >
+          <div class="d-flex align-items-center">
+            <span>
+              <fa-duotone-icon
+                [icon]="['fad', 'cassette-tape']"
+              ></fa-duotone-icon>
+            </span>
+            <span class="flex-grow-1 d-flex flex-column">
+              <span>{{ file.name }}</span>
+              <small class="text-muted">{{ file.size | bytes }}</small>
+            </span>
+            <span>
+              <button (click)="ToggleStar(file.name)" class="btn btn-tool">
+                <fa-icon
+                  *ngIf="FileMetadata[file.name].starred; else notStarred"
+                  class="starred"
+                  [icon]="['far', 'star']"
+                ></fa-icon>
+                <ng-template #notStarred>
+                  <fa-icon [icon]="['far', 'star']"></fa-icon>
+                </ng-template>
+              </button>
+              <button class="btn btn-tool" (click)="files.splice(idx, 1)">
+                <fa-icon [icon]="['far', 'times']"></fa-icon>
+              </button>
+            </span>
+          </div>
+          <div class="d-flex align-items-center">
+            <mat-form-field appearance="outline" class="mt-1 audio-chip-list">
+              <mat-label>Tags</mat-label>
+              <mat-chip-list #chipList aria-label="Tags selection">
+                <mat-chip
+                  *ngFor="let audioTag of FileMetadata[file.name]?.tags"
+                  [selectable]="true"
+                  [removable]="true"
+                  (removed)="RemoveAudioTag(audioTag, file.name)"
+                >
+                  {{ audioTag }}
+                  <mat-icon matChipRemove>cancel</mat-icon>
+                </mat-chip>
+                <input
+                  [matChipInputFor]="chipList"
+                  [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                  [matChipInputAddOnBlur]="true"
+                  (matChipInputTokenEnd)="AddAudioTag($event, file.name)"
+                />
+              </mat-chip-list>
+            </mat-form-field>
+          </div>
+        </li>
+      </ul>
+    </div>
+    <div
+      *ngSwitchDefault
+      class="flex-grow-1 d-flex align-items-center justify-content-center"
+    >
+      <div class="drop-zone m-5 p-5">Drag and drop files here</div>
+    </div>
+  </div>
+</ng-template>
+
+<ng-template #tplSelectProject>
+  <div
+    class="d-flex flex-column content-container justify-content-center align-items-center"
+  >
+    <ng-container [ngSwitch]="IsLoading$ | async">
+      <ng-container *ngSwitchCase="false">
+        <ul class="list-group list-group-flush w-100">
+          <li
+            class="list-group-item"
+            *ngFor="let project of Projects$ | async"
+            (click)="selectedProject = project"
+            [ngClass]="{ active: IsSelectedProject(project) }"
+          >
+            <fa-duotone-icon
+              [icon]="['fad', 'folder-open']"
+              [fixedWidth]="true"
+            ></fa-duotone-icon
+            >{{ project.Name }}
+          </li>
+        </ul>
+      </ng-container>
+      <ng-container *ngSwitchDefault>
+        <div>
+          <fa-duotone-icon
+            [icon]="['fad', 'spinner-third']"
+            [spin]="true"
+          ></fa-duotone-icon>
+          Loading Projects...
+        </div>
+      </ng-container>
+    </ng-container>
+  </div>
+</ng-template>
+
+<ng-template #tplCreateProject>
+  <div
+    class="d-flex flex-column content-container justify-content-center align-items-center"
+  >
+    <form class="w-100" [formGroup]="newProjectForm">
+      <div class="form-group">
+        <label for="newProjectName">Project name</label>
+        <input
+          type="text"
+          placeholder="My Project"
+          class="form-control"
+          id="newProjectName"
+          formControlName="name"
+          required
+        />
+      </div>
+      <mat-form-field appearance="outline" class="project-audio-chip-list">
+        <mat-label>Tags</mat-label>
+        <mat-chip-list #chipList aria-label="Tags selection">
+          <mat-chip
+            *ngFor="let projectTag of ProjectTags"
+            [selectable]="true"
+            [removable]="true"
+            (removed)="RemoveProjectTag(projectTag)"
+          >
+            {{ projectTag }}
+            <mat-icon matChipRemove>cancel</mat-icon>
+          </mat-chip>
+          <input
+            [matChipInputFor]="chipList"
+            [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+            [matChipInputAddOnBlur]="true"
+            (matChipInputTokenEnd)="AddProjectTag($event)"
+          />
+        </mat-chip-list>
+      </mat-form-field>
+    </form>
+  </div>
+</ng-template>

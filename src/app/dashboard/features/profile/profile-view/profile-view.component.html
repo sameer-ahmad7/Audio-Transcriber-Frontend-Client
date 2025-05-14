@@ -1,0 +1,23 @@
+<span>
+  <h1 class="page-title">{{claims?.FirstName}} {{claims?.LastName}}
+    <ng-container *ngIf="""Admin">
+      <fa-duotone-icon data-toggle="tooltip" title=""" Admin" [icon]="['fad', 'jedi']" [primaryColor]="'#f05e23'"
+        [secondaryColor]="'#ff7417'">
+      </fa-duotone-icon>
+    </ng-container>
+  </h1>
+</span>
+
+<div class="card" style="width: 18rem">
+  <div class="card-body">
+    <h5 class="card-title">Email</h5>
+    <p class="card-text">{{claims?.Email}}</p>
+  </div>
+</div>
+
+<div class="card" style="width: 18rem" *ngIf="debug">
+  <div class="card-body">
+    <h5 class="card-title">Auth Token</h5>
+    <pre appCopyText class="card-text">{{token}}</pre>
+  </div>
+</div>

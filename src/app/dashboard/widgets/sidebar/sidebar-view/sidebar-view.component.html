@@ -1,0 +1,56 @@
+<div class="sidebar-wrapper">
+  <nav class="sidebar-nav">
+    <ul class="sidebar-nav-list">
+      <li class="sidebar-nav-list-item">
+        <a [routerLink]="['projects']" [routerLinkActive]="'active'">
+          <fa-duotone-icon [icon]="['fad', 'folders']" [fixedWidth]="true">
+          </fa-duotone-icon>
+          Projects
+        </a>
+      </li>
+      <li class="sidebar-nav-list-item">
+        <a [routerLink]="['transcripts']" [routerLinkActive]="'active'">
+          <fa-duotone-icon [icon]="['fad', 'scroll']" [fixedWidth]="true">
+          </fa-duotone-icon>
+          Transcripts
+        </a>
+      </li>
+      <li class="sidebar-nav-list-item">
+        <a [routerLink]="['recordings']" [routerLinkActive]="'active'">
+          <fa-duotone-icon
+            [icon]="['fad', 'cassette-tape']"
+            [fixedWidth]="true"
+          >
+          </fa-duotone-icon>
+          Recordings
+        </a>
+      </li>
+      <li class="sidebar-nav-list-item">
+        <a [routerLink]="'/dashboard/reels'" [routerLinkActive]="'active'">
+          <fa-duotone-icon [icon]="['fad', 'camera-movie']" [fixedWidth]="true">
+          </fa-duotone-icon>
+          Sizzle Reels
+        </a>
+      </li>
+    </ul>
+
+    <ul class="sidebar-nav-list">
+      <li class="sidebar-nav-list-item">
+        <a [routerLink]="'/dashboard/settings'" [routerLinkActive]="'active'">
+          <fa-duotone-icon [icon]="['fad', 'cog']" [fixedWidth]="true">
+          </fa-duotone-icon>
+          Settings
+        </a>
+      </li>
+    </ul>
+    <ul class="sidebar-nav-list">
+      <li *ngIf="""Admin == true" class="sidebar-nav-list-item">
+        <a [routerLink]="'/dashboard/admin'" [routerLinkActive]="'active'">
+          <fa-duotone-icon [icon]="['fad', 'wrench']" [fixedWidth]="true">
+          </fa-duotone-icon>
+          Admin
+        </a>
+      </li>
+    </ul>
+  </nav>
+</div>

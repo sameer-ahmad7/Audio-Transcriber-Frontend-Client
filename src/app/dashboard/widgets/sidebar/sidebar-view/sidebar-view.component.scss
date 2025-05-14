@@ -1,0 +1,38 @@
+@import "styles";
+
+$sidebar-fg: $clr-grey-4;
+
+:host {
+  display: block;
+}
+
+.sidebar-wrapper {
+  display: block;
+  min-width: 200px;
+  color: $sidebar-fg;
+  background-color: $sidebar-bg;
+}
+
+.sidebar-nav {
+  display: block;
+  padding: 40px 30px;
+}
+
+.sidebar-nav-list {
+  display: block;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  margin-bottom: 25px;
+  text-align: left;
+
+  .sidebar-nav-list-item {
+    a.active {
+      color: $dark-orange;
+    }
+    fa-icon,
+    fa-duotone-icon {
+      margin-right: 16px;
+    }
+  }
+}

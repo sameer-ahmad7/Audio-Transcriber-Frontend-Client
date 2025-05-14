@@ -1,0 +1,40 @@
+@import "styles";
+
+.background-color-white {
+  background: $white;
+  padding: 2rem 1rem 2rem 0;
+}
+
+.reel-details {
+  margin-top: 16px;
+  margin-left: 16px;
+  h6 {
+    display: inline-block;
+  }
+  span {
+    margin-left: 8px;
+  }
+}
+
+.tools-card {
+  background: ghostwhite;
+}
+
+button {
+  min-width: 110px;
+}
+
+.snippets {
+  margin-top: 16px;
+  margin-left: 16px;
+}
+
+.reel-details {
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 1px solid darkgray;
+
+  h6 {
+    font-weight: bold;
+  }
+}

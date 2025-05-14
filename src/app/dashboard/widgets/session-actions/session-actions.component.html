@@ -1,0 +1,164 @@
+<ng-container [ngSwitch]="GetGeneralState(session)">
+  <div
+    *ngSwitchCase="GeneralState.NoMedia"
+    appFileDrop
+    (FdFileDrop)="dropFile.emit({ SessionId: session.SessionId, File: $event })"
+    class="drop-zone text-center"
+  >
+    Drop File Here
+  </div>
+  <div
+    *ngSwitchCase="GeneralState.StartingMediaUpload"
+    class="d-flex flex-column align-items-center"
+  >
+    <small class="text-muted">Starting Upload</small>
+    <div class="flex-grow-1 w-100">
+      <ngb-progressbar
+        type="warning"
+        [value]="100"
+        [striped]="true"
+        [animated]="true"
+      ></ngb-progressbar>
+    </div>
+  </div>
+  <div
+    *ngSwitchCase="GeneralState.UploadingMedia"
+    class="d-flex flex-column align-items-center"
+  >
+    <small class="text-muted">Uploading Media</small>
+    <div class="flex-grow-1 w-100">
+      <ngb-progressbar
+        type="success"
+        [value]="session.UploadProgress"
+      ></ngb-progressbar>
+    </div>
+  </div>
+  <div
+    *ngSwitchCase="GeneralState.FinishingMediaUpload"
+    class="d-flex flex-column align-items-center"
+  >
+    <small class="text-muted">Finalizing Upload</small>
+    <div class="flex-grow-1 w-100">
+      <ngb-progressbar
+        type="success"
+        [value]="100"
+        [striped]="true"
+        [animated]="true"
+      ></ngb-progressbar>
+    </div>
+  </div>
+  <div
+    *ngSwitchCase="GeneralState.MediaUploaded"
+    class="d-flex flex-column align-items-center"
+  >
+    <small class="text-muted">Analyzing Media</small>
+    <div class="flex-grow-1 w-100">
+      <ngb-progressbar
+        type="info"
+        [value]="100"
+        [striped]="true"
+        [animated]="true"
+      ></ngb-progressbar>
+    </div>
+  </div>
+  <div *ngSwitchCase="GeneralState.ReadyToTranscribe" class="color-warning-dk">
+    <button
+      class="btn btn-outline-success"
+      (click)="
+        transcribe.emit({
+          SessionId: session.SessionId,
+          AudioDuration: session.AudioDetails.DurationMS
+        })
+      "
+    >
+      Transcribe
+    </button>
+  </div>
+  <div
+    *ngSwitchCase="GeneralState.TranscriptionFinished"
+    class="d-flex flex-column align-items-center"
+  >
+    <button
+      type="button"
+      class="btn btn-outline-primary"
+      (click)="
+        exportTranscript.emit({ SessionId: session.SessionId, Format: 'docx' })
+      "
+    >
+      <fa-icon
+        [icon]="['far', 'arrow-to-bottom']"
+        [fixedWidth]="true"
+      ></fa-icon>
+      Export DOCX
+    </button>
+  </div>
+
+  <div
+    *ngSwitchCase="GeneralState.DownloadStarted"
+    class="d-flex flex-column align-items-center"
+  >
+    <button type="button" class="btn btn-outline-primary" disabled>
+      <ng-container>
+        <fa-duotone-icon
+          [icon]="['fad', 'spinner']"
+          [fixedWidth]="true"
+          [pulse]="true"
+        >
+        </fa-duotone-icon>
+      </ng-container>
+      Export DOCX
+    </button>
+  </div>
+
+  <div
+    *ngSwitchCase="GeneralState.TranscriptionFailed"
+    class="d-flex flex-column align-items-center"
+  >
+    <small class="text-muted">Transcription Failed</small>
+    <pre>{{ session.Error }}</pre>
+  </div>
+
+  <div
+    *ngSwitchCase="GeneralState.TranscriptionInit"
+    class="d-flex flex-column align-items-center"
+  >
+    <small class="text-muted">Transcription Intitializing</small>
+    <div class="flex-grow-1 w-100">
+      <ngb-progressbar
+        type="warning"
+        [value]="100"
+        [striped]="true"
+        [animated]="true"
+      ></ngb-progressbar>
+    </div>
+  </div>
+
+  <div
+    *ngSwitchCase="GeneralState.TranscriptionStarting"
+    class="d-flex flex-column align-items-center"
+  >
+    <small class="text-muted">Starting Transcription</small>
+    <div class="flex-grow-1 w-100">
+      <ngb-progressbar
+        type="info"
+        [value]="100"
+        [striped]="true"
+        [animated]="true"
+      ></ngb-progressbar>
+    </div>
+  </div>
+  <div
+    *ngSwitchCase="GeneralState.TranscriptionRunning"
+    class="d-flex flex-column align-items-center"
+  >
+    <small class="text-muted">Transcription Running</small>
+    <div class="flex-grow-1 w-100">
+      <ngb-progressbar
+        type="success"
+        [value]="100"
+        [striped]="true"
+        [animated]="true"
+      ></ngb-progressbar>
+    </div>
+  </div>
+</ng-container>

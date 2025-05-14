@@ -1,0 +1,17 @@
+<h1 class="page-header">Administration Dashboard</h1>
+
+<h4>Tenants</h4>
+<app-tenant-list
+         [tenants]="AllTenants$|async"
+         [tenantsLoading]="AllTenantsLoading$|async"
+         (addMembers)="OnAddTenantMembers($event)"
+         >
+        </app-tenant-list>
+
+<h4>Users</h4>
+<app-user-list
+         [users]="AllUsers$|async"
+         [usersLoading]="AllUsersLoading$|async"
+         >
+        </app-user-list>
+

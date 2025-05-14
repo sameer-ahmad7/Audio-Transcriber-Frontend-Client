@@ -1,0 +1,8 @@
+<div class="toggle-wrapper">
+	<div class="toggle">
+		<input class="toggle-input" type="checkbox" />
+		<button class="toggle-btn {{className}}" [ngClass]="{'toggle-btn-on': on, 'toggle-btn-off': !on}" [attr.aria-expanded]="on" (click)="onClick($event)" [disabled]="disabled"></button>
+	</div>
+	<div class="content-wrapper text-muted" [ngClass]="{'disabled': disabled}" *ngIf="on"><ng-content select="[toggleOn]"></ng-content></div>
+	<div class="content-wrapper" [ngClass]="{'disabled': disabled}" *ngIf="!on"><ng-content select="[toggleOff]"></ng-content></div>
+</div>

@@ -1,0 +1,64 @@
+<form class="form-signin" [formGroup]="loginForm">
+  <h1 class="h3 mb-3 font-weight-normal">
+    Make the most of your qualitative research.
+  </h1>
+  <div class="form-group mb-0 d-flex">
+    <input
+      class="form-control"
+      id="frmFirstname"
+      type="text"
+      placeholder="First name"
+      formControlName="firstname"
+    />
+  </div>
+  <div class="form-group mb-0 d-flex">
+    <input
+      class="form-control"
+      id="frmLastname"
+      type="text"
+      placeholder="Last name"
+      formControlName="lastname"
+    />
+  </div>
+  <div class="form-group mb-0 d-flex">
+    <input
+      class="form-control"
+      id="frmUsername"
+      type="email"
+      placeholder="Email address"
+      formControlName="email"
+      autocomplete="email"
+    />
+  </div>
+  <div class="form-group mb-0 d-flex">
+    <input
+      class="form-control"
+      id="frmPassword"
+      type="password"
+      placeholder="Password"
+      formControlName="password"
+      autocomplete="new-password"
+    />
+  </div>
+  <button
+    class="btn btn-lg btn-success btn-block"
+    (click)="onSubmit()"
+    [disabled]="!loginForm.valid"
+  >
+    <ng-container [ngSwitch]="authLoading$ | async">
+      <fa-duotone-icon
+        *ngSwitchCase="true"
+        [icon]="['fad', 'spinner']"
+        [fixedWidth]="true"
+        [pulse]="true"
+      >
+      </fa-duotone-icon>
+      <fa-duotone-icon
+        *ngSwitchDefault
+        [icon]="['fad', 'sign-in']"
+        [fixedWidth]="true"
+      ></fa-duotone-icon>
+    </ng-container>
+    Join ""
+  </button>
+</form>

@@ -1,0 +1,29 @@
+image:
+  name: node:13.5-buster
+  entrypoint:
+    - '/usr/bin/env'  
+    - 'PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin'
+
+before_script:
+  - chmod +x ./bootstrap-cicd.sh
+  - ./bootstrap-cicd.sh
+
+stages:
+  - build
+  - deploy
+
+build: 
+  only: 
+    - master
+  stage: build
+  script: ng build --prod --aot
+  artifacts:
+    paths:
+      - ./dist
+    expire_in: 5 days
+
+deploy:
+  only: 
+    - master
+  stage: deploy
+  script: make deploy

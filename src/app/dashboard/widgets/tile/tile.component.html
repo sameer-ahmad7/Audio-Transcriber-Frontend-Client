@@ -1,0 +1,14 @@
+<div class="d-flex flex-gap flex-row align-items-center">
+    <ng-content select="[tileIcon]"></ng-content>
+    <div class="d-flex ml-2 flex-gap flex-column flex-grow-1">
+        <strong><ng-content select="[tileTitle]"></ng-content></strong>
+        <div class="d-flex flex-gap">
+            <span class="text-muted"><ng-content select="[tileCaption]"></ng-content></span>
+            <ng-content class="tile-item" select="[tileFlag]"></ng-content>
+        </div>
+    </div>    
+    <div class="d-flex flex-gap flex-row">
+        <ng-content select="[tileTool]"></ng-content>
+    </div>
+</div>
+

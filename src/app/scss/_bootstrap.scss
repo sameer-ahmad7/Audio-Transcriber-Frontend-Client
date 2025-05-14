@@ -1,0 +1,10 @@
+@import "colors";
+
+$theme-colors: (
+  "primary": $clr-blue-3,
+);
+
+$body-bg: $clr-grey-2;
+
+// Bootstrap and its default variables
+@import "../../../node_modules/bootstrap/scss/bootstrap";

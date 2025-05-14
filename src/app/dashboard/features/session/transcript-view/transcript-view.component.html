@@ -1,0 +1,57 @@
+<ng-template #popTitle>
+  <input
+    type="text"
+    #snippetName
+    class="form-control"
+    placeholder="Snippet name"
+  />
+</ng-template>
+
+<ng-template #popContent>
+  <p>{{ this.SelectedText }}</p>
+
+  <div class="d-flex flex-row-reverse mt-3 form-group">
+    <button (click)="AddToReel()" type="button" class="btn btn-success ml-1">
+      Add
+    </button>
+
+    <button (click)="popover.close()" class="btn btn-danger">Cancel</button>
+  </div>
+</ng-template>
+<div class="d-flex justify-content-center">
+  <button
+    [popoverTitle]="popTitle"
+    style="visibility: hidden"
+    type="button"
+    class="btn btn-outline-secondary"
+    popoverTitle="Sizzle reel"
+    #popover="ngbPopover"
+    [autoClose]="false"
+    triggers="manual"
+    placement="bottom"
+    [ngbPopover]="popContent"
+  >
+    Click to toggle
+  </button>
+</div>
+
+<ul
+  class="list-group list-group-flush flex-grow-1 w-100"
+  *ngFor="let block of SpeakerBlocks"
+>
+  <li class="list-group-item d-flex justify-content-around">
+    <h4 class="mr-2">{{ block.Speaker }}</h4>
+    <div
+      #transcriptionText
+      (mouseup)="OpenPopup()"
+      class="flex-grow-1 align-self-baseline"
+    >
+      <span
+        [attr.data-start-time]="item.Start"
+        [attr.data-end-time]="item.End"
+        *ngFor="let item of block.Items"
+        >{{ ItemText[item.Content] }}</span
+      >
+    </div>
+  </li>
+</ul>

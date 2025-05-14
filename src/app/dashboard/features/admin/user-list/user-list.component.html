@@ -1,0 +1,19 @@
+<ng-container [ngSwitch]="usersLoading">
+    <app-loading-splash *ngSwitchCase="true"></app-loading-splash>
+    <ng-container *ngSwitchDefault>
+        <ng-content *ngTemplateOutlet="tplList"></ng-content>
+    </ng-container>
+</ng-container>
+
+<ng-template #tplList>
+    <ul class="list-group">
+        <li *ngFor="let user of users" class="list-group-item">
+            <app-tile>
+                <app-user-icon tileIcon [size]="'2x'"></app-user-icon>
+                <a tileTitle [routerLink]="['users', user.UserId]">{{user.FirstName}} {{user.LastName}}</a>
+                <span tileCaption>{{user.Email}}</span>
+                <fa-duotone-icon tileFlag *ngIf="Is""Admin(user)" ngbTooltip=""" Administrator" [icon]="['fad', 'user-crown']" primaryColor="silver" secondaryColor="#fd6a02" swapOpacity="true"></fa-duotone-icon>
+            </app-tile>
+        </li>
+    </ul>
+</ng-template>

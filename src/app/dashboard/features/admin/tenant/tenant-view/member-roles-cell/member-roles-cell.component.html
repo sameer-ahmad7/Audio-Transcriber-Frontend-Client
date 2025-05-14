@@ -1,0 +1,20 @@
+
+<button class="btn" (click)="ToggleMaintainer()" [disabled]="MemberUpdating$|async">
+    <ng-container [ngSwitch]="MemberUpdating$|async">
+        <fa-duotone-icon *ngSwitchCase="true" [icon]="['fad', 'sync']" [spin]="true"></fa-duotone-icon>
+        <ng-container *ngSwitchDefault>
+            <ng-container [ngSwitch]="user.Member.Roles.Maintainer">
+                <fa-icon [ngbTooltip]="tplNonMaintainer" *ngSwitchCase="false" [icon]="['fal', 'user-cog']" [styles]="{'color': 'silver'}"></fa-icon>
+                <fa-duotone-icon [ngbTooltip]="tplMaintainer" *ngSwitchCase="true" [icon]="['fad', 'user-cog']" primaryColor="limegreen"></fa-duotone-icon>
+            </ng-container>
+        </ng-container>
+    </ng-container>
+</button>
+
+<ng-template #tplNonMaintainer>
+    <b>{{user.User.Email}}</b> is not a <b>Tenant Maintainer</b>
+</ng-template> 
+
+<ng-template #tplMaintainer>
+    <b>{{user.User.Email}}</b> is a <b>Tenant Maintainer</b>
+</ng-template> 

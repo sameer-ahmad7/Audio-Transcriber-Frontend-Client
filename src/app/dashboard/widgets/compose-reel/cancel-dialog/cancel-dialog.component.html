@@ -1,0 +1,24 @@
+<div class="modal-header">
+  <h5 class="modal-title">Cancel Sizzle Reel Changes</h5>
+  <button
+    type="button"
+    class="close"
+    (click)="modal.dismiss()"
+    aria-label="Close"
+  >
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<div class="modal-body">
+  <p>
+    <strong>Are you sure you want to cancel changes in sizzle reel?</strong>
+  </p>
+</div>
+<div class="modal-footer">
+  <button type="button" class="btn btn-secondary" (click)="modal.dismiss()">
+    Cancel
+  </button>
+  <button type="button" class="btn btn-danger" (click)="modal.close('closed')">
+    Ok
+  </button>
+</div>

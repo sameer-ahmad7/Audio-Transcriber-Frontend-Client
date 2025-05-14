@@ -1,0 +1,90 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-8">
+      <ng-container *ngTemplateOutlet="body"></ng-container>
+    </div>
+    <div class="col-4">
+      <ng-container *ngTemplateOutlet="tools"></ng-container>
+    </div>
+  </div>
+</div>
+
+<ng-template #tools>
+  <div class="card tools-card mb-5 ml-5">
+    <div class="card-body">
+      <h5 class="card-title">Upload New Files</h5>
+      <p class="card-text text-center drop-zone">
+        <app-drop-zone></app-drop-zone>
+      </p>
+    </div>
+  </div>
+</ng-template>
+
+<ng-template #body>
+  <ul ngbNav #nav="ngbNav" class="nav-tabs">
+    <li ngbNavItem>
+      <a ngbNavLink>All ({{ allSessions?.length }})</a>
+      <ng-template ngbNavContent>
+        <app-recordings-list
+          (exportTranscript)="exportTranscript.emit($event)"
+          (transcribe)="transcribe.emit($event)"
+          (dropFiles)="dropFiles.emit($event)"
+          [sessions]="allSessions"
+          [loading]="sessionsLoading"
+        >
+        </app-recordings-list>
+      </ng-template>
+    </li>
+    <li ngbNavItem>
+      <a ngbNavLink>Transcribed ({{ finishedSessions?.length }})</a>
+      <ng-template ngbNavContent>
+        <app-recordings-list
+          (exportTranscript)="exportTranscript.emit($event)"
+          (transcribe)="transcribe.emit($event)"
+          (dropFiles)="dropFiles.emit($event)"
+          [sessions]="finishedSessions"
+          [loading]="sessionsLoading"
+        >
+        </app-recordings-list>
+      </ng-template>
+    </li>
+    <li ngbNavItem>
+      <a ngbNavLink>Ready to Transcribe ({{ readySessions?.length }})</a>
+      <ng-template ngbNavContent>
+        <app-recordings-list
+          (transcribe)="transcribe.emit($event)"
+          (dropFiles)="dropFiles.emit($event)"
+          [sessions]="readySessions"
+          [loading]="sessionsLoading"
+        >
+        </app-recordings-list>
+      </ng-template>
+    </li>
+    <li ngbNavItem>
+      <a ngbNavLink>Working ({{ workingSessions?.length }})</a>
+      <ng-template ngbNavContent>
+        <app-recordings-list
+          (transcribe)="transcribe.emit($event)"
+          (dropFiles)="dropFiles.emit($event)"
+          [sessions]="workingSessions"
+          [loading]="sessionsLoading"
+        >
+        </app-recordings-list>
+      </ng-template>
+    </li>
+    <li ngbNavItem>
+      <a ngbNavLink>Error ({{ errorSessions?.length }})</a>
+      <ng-template ngbNavContent>
+        <app-recordings-list
+          (transcribe)="transcribe.emit($event)"
+          (dropFiles)="dropFiles.emit($event)"
+          [sessions]="errorSessions"
+          [loading]="sessionsLoading"
+        >
+        </app-recordings-list>
+      </ng-template>
+    </li>
+  </ul>
+
+  <div [ngbNavOutlet]="nav" class="mt-2"></div>
+</ng-template>

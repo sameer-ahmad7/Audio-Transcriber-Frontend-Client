@@ -1,0 +1,20 @@
+<ng-container [ngSwitch]="tenantsLoading">
+    <app-loading-splash *ngSwitchCase="true">splash</app-loading-splash>
+    <ng-container *ngSwitchDefault>
+        <ng-content *ngTemplateOutlet="tplList"></ng-content>
+    </ng-container>
+</ng-container>
+
+<ng-template #tplList>
+    <ul class="list-group">
+        <li *ngFor="let tenant of tenants" class="list-group-item">
+            <app-tile>
+                <app-tenant-type-icon tileIcon [tenant]="tenant" [size]="'2x'"></app-tenant-type-icon>
+                <a tileTitle [routerLink]="['tenants', tenant.TenantID]" class="font-weight-bold">{{tenant.Name}}</a>
+                <span tileCaption class="pr-3">{{tenant.Type|titlecase}} Tenant</span>
+                <app-tenant-members-flag tileFlag [tenant]="tenant"></app-tenant-members-flag>
+                <button tileTool class="btn btn-sm" (click)="OnAddMember(tenant)"><fa-duotone-icon [icon]="['fad', 'user-plus']" primaryColor="platinum" primaryOpacity="0.35" secondaryColor="limegreen" secondaryOpacity="1.0"></fa-duotone-icon></button>
+            </app-tile>
+        </li>
+    </ul>
+</ng-template>

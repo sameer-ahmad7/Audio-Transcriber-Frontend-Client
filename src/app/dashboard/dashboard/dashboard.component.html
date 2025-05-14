@@ -1,0 +1,72 @@
+<div class="dashboard-container fade-in">
+  <header class="app-header">
+    <div class="header-layout header-layout-group">
+      <div class="header-item-primary">
+        <a [routerLink]="'/dashboard'" class="text-decoration-none">
+          <fa-duotone-icon
+            [primaryColor]="'#f05e23'"
+            [icon]="['fad', 'waveform']"
+            [fixedWidth]="true"
+            [size]="'2x'"
+          >
+          </fa-duotone-icon>
+          <span class="ml-2 ""-logo">""</span>
+        </a>
+      </div>
+
+      <div class="flex-grow-1"></div>
+      <div class="header-item-tools">
+        <div ngbDropdown class="header-row-nav-item">
+          <button
+            class="btn btn-outline-primary btn-sm"
+            id="userDropdown"
+            ngbDropdownToggle
+          >
+            {{ Username$ | async }}
+          </button>
+          <div
+            ngbDropdownMenu
+            aria-labelledby="userDropdown"
+            class="dropdown-menu-right"
+          >
+            <button ngbDropdownItem (click)="Logout()">
+              <i class="fad fa-fw fa-sign-out mr-2"></i>
+              Logout
+            </button>
+            <button ngbDropdownItem routerLink="profile">
+              <i class="fad fa-cog fa-fw mr-2"></i>
+              Profile
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+  <div class="layout-wrapper" id="main">
+    <div class="layout-nav" id="navbar">
+      <app-sidebar></app-sidebar>
+    </div>
+
+    <div class="flex-grow-1">
+      <main class="layout-main">
+        <span class="outlet-wrapper">
+          <ng-container [ngSwitch]="SpinnerVisible$ | async">
+            <app-loading-splash *ngSwitchCase="true"></app-loading-splash>
+            <router-outlet *ngSwitchDefault> </router-outlet>
+          </ng-container>
+        </span>
+
+        <span class="copyright-wrapper">
+          <span class="text-muted"
+            >Copyright <fa-icon [icon]="['fal', 'copyright']"></fa-icon>2020
+            ""AI, LLC</span
+          >
+        </span>
+      </main>
+    </div>
+
+    <div class="d-flex">
+      <router-outlet name="reel"></router-outlet>
+    </div>
+  </div>
+</div>

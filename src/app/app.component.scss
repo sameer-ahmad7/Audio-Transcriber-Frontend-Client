@@ -1,0 +1,20 @@
+@import "styles";
+
+// :host {
+//   height: 100%;
+//   width: 100%;
+// }
+.app-container {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  min-height: 100%;
+}
+
+html {
+  height: 100%;
+}
+
+body {
+  min-height: 100%;
+}

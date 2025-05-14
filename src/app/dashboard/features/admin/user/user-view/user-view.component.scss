@@ -1,0 +1,41 @@
+@import "styles";
+
+.profile-panel {
+  margin-top: 18px;
+  padding-top: 6px;
+  border-top: 1px solid $clr-grey-2;
+  &:first-child {
+    margin-top: unset;
+    border-color: transparent;
+    padding-top: 0px;
+  }
+  display: block;
+  font-family: "Open Sans", sans-serif;
+  font-size: 12px;
+
+  h1 {
+    font-size: 1.35rem;
+    font-weight: 600;
+  }
+
+  h2 {
+    font-size: 0.85rem;
+  }
+
+  .panel-row {
+    display: flex;
+    flex-direction: row;
+
+    .panel-col {
+      display: flex;
+      flex-direction: column;
+      flex-grow: 1;
+      max-width: (100% / 3);
+      > * {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+    }
+  }
+}

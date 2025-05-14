@@ -1,0 +1,29 @@
+<div class="modal-header">
+    <h4 class="modal-title d-flex flex-row align-items-center">
+        <app-project-icon></app-project-icon>
+       <span>Add Folder</span>
+     </h4>
+
+     <button type="button" class="btn btn-small btn-outline-danger shadow-none border-0" aria-label="Close" (click)="Dismiss()">
+        <fa-icon [icon]="['fas', 'times']"></fa-icon>
+     </button>
+</div>
+
+<div class="modal-body">
+    <form [formGroup]="projectForm">
+        <label>
+            Folder name
+            <input type="text" formControlName="projectName" required>
+            <div *ngIf="projectName.invalid && (projectName.dirty || projectName.touched)" class="alert alert-danger">
+                <div *ngIf="projectName.errors.required">
+                    Folder name is required.
+                </div>
+            </div>
+        </label>
+    </form>
+</div>
+
+<div class="modal-footer">
+    <button type="button" class="btn btn-outline-danger" (click)="Dismiss()">Cancel</button>
+    <button class="btn btn-success" [disabled]="projectForm.invalid" (click)="CreateProject()">Create Folder</button>
+  </div>

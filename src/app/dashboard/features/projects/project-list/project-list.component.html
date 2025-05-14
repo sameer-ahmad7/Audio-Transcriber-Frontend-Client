@@ -1,0 +1,251 @@
+<app-loading-splash *ngIf="projectLoading; else ready">
+
+  </app-loading-splash>
+
+
+<ng-template #ready>
+  <div class="project-container col-12">
+   <div class="project-header row-2 col-8 p-2" *ngIf="parentProjects">
+      <div style="display: flex; align-items: center; flex-wrap: wrap">
+          <div
+             class="d-flex align-items-center"
+             style="font-size: 24px"
+             *ngFor="let id of parentProjects.reverse(); let i = index"
+               >
+              <div *ngIf="i != 0"> <fa-icon class="fas fa-caret-right "> </fa-icon>
+              </div>
+              <div style="margin-left: 6px">
+            <a
+              [routerLink]="'/dashboard/projects/' + id.ProjectID"
+              [routerLinkActive]="'bold'"
+              (click)="GetProject(id.ProjectID)"
+            >
+              {{ id.Name }}
+            </a></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="project-action row-2">
+      <div class="action-button">
+        <button
+          class="btn btn-outline-primary"
+          type="button"
+          (click)="OnAddProject()"
+        >
+          <fa-icon [icon]="['fas', 'plus']" [fixedWidth]="true"> </fa-icon>
+          New Folder
+        </button>
+      </div>
+
+      <div class="action-button">
+        <button
+          class="btn btn-outline-primary"
+          type="button"
+          (click)="UploadFiles()"
+        >
+          <fa-icon [icon]="['far', 'upload']" [fixedWidth]="true"> </fa-icon>
+          Upload
+        </button>
+      </div>
+
+      <!-- Transcribe  -->
+      <div class="action-button" *ngIf="isReadyToTranscribe">
+        <button
+          class="btn btn-outline-primary"
+          type="button"
+          (click)="Transcribe()"
+        >
+          <fa-icon [icon]="['far', 'check-circle']" [fixedWidth]="true">
+          </fa-icon>
+          Transcribe
+        </button>
+      </div>
+
+      <!-- Download -->
+
+      <div class="action-button" *ngIf="isReadyToDownload">
+        <button
+          class="btn btn-outline-primary"
+          type="button"
+          (click)="Download()"
+        >
+          <fa-icon [icon]="['far', 'download']" [fixedWidth]="true"> </fa-icon>
+          Download
+        </button>
+      </div>
+    </div>
+
+     <!-- infinite scroller for Loading Directories -->
+     <div
+     infiniteScroll
+     [infiniteScrollDistance]="5"
+     (scrolled)="Scroll()"
+     [scrollWindow]=true
+ >
+
+    <div class="table"  >
+      <table class="table-hover" id="dataTable">
+        <thead >
+          <tr>
+            <th scope="col" style="max-width: 2px"></th>
+            <th scope="col" (click)="SortRow()" >
+              Name
+              <label class="adjust-sort-button"
+
+              >
+                <fa-icon
+                  *ngIf="!isSorted"
+                  [icon]="['far', 'caret-down']"
+                  [fixedWidth]="true"
+                >
+                </fa-icon>
+                <fa-icon
+                  *ngIf="isSorted"
+                  [icon]="['far', 'caret-up']"
+                  [fixedWidth]="true"
+                >
+                </fa-icon>
+              </label>
+            </th>
+            <th scope="col">Count</th>
+            <th scope="col">Status</th>
+            <th scope="col">Duration</th>
+            <th scope="col"></th>
+          </tr>
+        </thead>
+        <tbody>
+
+
+          <tr *ngFor="let proj of projects" id="myrow">
+            <td></td>
+
+            <td class="bd-highlight">
+              <app-tile>
+                <app-project-icon tileIcon [size]="'1x'"></app-project-icon>
+                <a
+                  tileTitle
+                  [routerLink]="'/dashboard/projects/' + proj.ProjectID"
+                  (click)="GetProject(proj.ProjectID)"
+                >
+                  {{ proj.Name }}
+                </a>
+              </app-tile>
+            </td>
+            <td> {{proj?.RecordingsCount}}  Recordings</td>
+            <td></td>
+            <td></td>
+            <!-- display buttons  Edit project, delete project -->
+
+            <td>
+              <button
+              [disabled]="projectUpdating"
+              (click)="EditProject(proj.ProjectID, proj.Name)"
+              type="button" style="color: green;"
+              class="button-info"
+            >
+              <ng-container [ngSwitch]="projectUpdating">
+                <fa-icon
+                  [icon]="['far', 'pencil']"
+                  *ngSwitchCase="false"
+                  [fixedWidth]="true"
+                >
+                </fa-icon>
+                <fa-duotone-icon
+                  *ngSwitchCase="true"
+                  [icon]="['fad', 'spinner']"
+                  [fixedWidth]="false"
+                  [pulse]="true"
+                >
+                </fa-duotone-icon>
+              </ng-container>
+
+            </button>
+
+
+            <!-- <button
+            (click)="DeleteProject(proj.ProjectID)"
+            type="button" style="color: red;"
+            class="button-info"
+          >
+            <fa-icon [icon]="['far', 'trash']" [fixedWidth]="true"> </fa-icon>
+
+          </button> -->
+            </td>
+          </tr>
+
+          <tr
+            *ngFor="let session of sessions; let i = index"
+            id="myrow"
+            [ngClass]="{ active: isCheckedArr[i] }"
+            (click)="GetRowDetails(session, i)"
+          >
+            <td>
+
+                <input
+                  class="display-on-check"
+                  [(ngModel)]="isCheckedArr[i]"
+                  id="checkbox"
+                  type="checkbox"
+                />
+
+            </td>
+            <td class="bd-highlight">
+              <div class="session-display">
+                <i class="fas fa-music"></i>
+                <a [routerLink]="'session/' + session.SessionID">
+                  {{ session.Name }}
+                </a>
+              </div>
+            </td>
+            <td class="bd-highlight"></td>
+            <td class="bd-highlight">
+              {{ session.Status }}
+            </td>
+            <td class="bd-highlight">{{ recordingTime(session) }}</td>
+            <td>
+              <div *ngIf="session.Status == 'TranscriptionFinished'">
+                <button class="button-info" style="color:rgb(104, 103, 103);" type="button" (click)="Download()">
+                  <fa-icon
+                    [icon]="['far', 'download']"
+                    [fixedWidth]="true"
+                  ></fa-icon>
+                </button>
+              </div>
+              <div *ngIf="session.Status == 'ReadyToTranscribe'">
+                <button
+                  type="button"
+                  class="button-info"
+                  (click)="Transcribe()"
+                >
+                  <fa-icon
+                    [icon]="['far', 'check-circle']"
+                    [fixedWidth]="true"
+                  ></fa-icon>
+                </button>
+              </div>
+            </td>
+          </tr>
+
+
+        </tbody>
+
+
+      </table>
+    </div>
+  </div>
+  </div>
+
+  <!-- Alert: for no more post -->
+     <!-- <div *ngIf="!cursorValue"
+      class="row" style="margin-block-start: 5rem;"
+      >
+
+      <div class="col-md-12 d-flex justify-content-center">
+          <div class="text-muted h6 alert alert-secondary p-2">
+            No more items to display
+         </div>
+      </div>
+    </div> -->
+
+</ng-template>

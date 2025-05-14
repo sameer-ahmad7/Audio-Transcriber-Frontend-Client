@@ -1,0 +1,4 @@
+<button (click)="ToggleStar()" class="mt-1 btn btn-tool">
+  <fa-icon *ngIf="Starred" class="starred" [icon]="['far', 'star']"></fa-icon>
+  <fa-icon *ngIf="!Starred" [icon]="['far', 'star']"></fa-icon>
+</button>

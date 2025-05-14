@@ -1,0 +1,6 @@
+<app-edit-reel-view
+  [SnippetDeleting]="SnippetDeleting$ | async"
+  [Reel]="Reel$ | async"
+  (saveSnippet)="OnSaveSnippet($event)"
+  (deleteSnippet)="OnDeleteSnippet($event)"
+></app-edit-reel-view>

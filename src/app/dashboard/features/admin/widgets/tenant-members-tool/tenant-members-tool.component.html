@@ -1,0 +1,14 @@
+<ng-container [ngSwitch]="MembersLoading$|async">
+    <ng-container *ngSwitchCase="true">
+        <pre>Loading Members...</pre>
+    </ng-container>
+    <ng-container *ngSwitchDefault>
+        <ng-content *ngTemplateOutlet="tplTool"></ng-content>
+    </ng-container>
+</ng-container>
+
+<ng-template #tplTool>
+    <ng-container *ngLet="Members$|async as members">
+        {{members.length}} <fa-duotone-icon [ngbTooltip]="members.length + ' Tenant Members'" [icon]="['fad', 'user-friends']" primaryColor="#6D7B8D" secondaryColor="#6D7B8D"></fa-duotone-icon> 
+    </ng-container>
+</ng-template>

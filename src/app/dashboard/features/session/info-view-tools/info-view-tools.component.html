@@ -1,0 +1,20 @@
+<div class="card tools-card mb-5">
+  <div class="card-body">
+    <h5 class="card-title">Upload New Files</h5>
+    <p class="card-text text-center drop-zone">
+      <app-drop-zone></app-drop-zone>
+    </p>
+  </div>
+</div>
+
+<div class="card tools-card">
+  <div class="card-body">
+    <h5 class="card-title">Actions</h5>
+    <p class="card-text">
+      <app-session-actions
+                           (transcribe)="transcribe.emit($event)"
+                           (exportTranscript)="exportTranscript.emit($event)"
+                           [session]="session"></app-session-actions>
+    </p>
+  </div>
+</div>

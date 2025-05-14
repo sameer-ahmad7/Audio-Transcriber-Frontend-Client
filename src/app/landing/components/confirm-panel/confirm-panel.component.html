@@ -1,0 +1,18 @@
+<form class="form-signin" [formGroup]="confirmForm">
+  <h4>We just sent you a confirmation email.</h4>
+
+  <div class="form-group mb-0 d-flex">
+    <input class="form-control" id="frmUsername" type="email" placeholder="Email address" formControlName="email">
+  </div>
+  <div class="form-group d-flex">
+    <input class="form-control" id="frmPassword" type="text" placeholder="Confirmation Code" formControlName="code">
+  </div>
+  <button class="btn btn-lg btn-outline-success btn-block" (click)="onSubmit()" [disabled]="!confirmForm.valid">
+    <ng-container [ngSwitch]="authLoading$|async">
+      <fa-duotone-icon *ngSwitchCase="true" [icon]="['fad', 'spinner']" [fixedWidth]="true" [pulse]="true">
+      </fa-duotone-icon>
+      <fa-duotone-icon *ngSwitchDefault [icon]="['fad', 'sign-in']" [fixedWidth]="true"></fa-duotone-icon>
+    </ng-container>
+    Login
+  </button>
+</form>

@@ -1,0 +1,13 @@
+:host {
+  display: block;
+}
+
+.tile-item {
+  border: 1px dotted red;
+  padding-left: 6px;
+}
+
+.flex-gap {
+  flex-wrap: wrap;
+  gap: 6px;
+}

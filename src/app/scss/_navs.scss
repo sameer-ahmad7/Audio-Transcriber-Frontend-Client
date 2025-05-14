@@ -1,0 +1,18 @@
+@import 'fonts';
+
+nav {
+  font-family: 'Roboto', sans-serif;
+  font-weight: 400;
+  font-size: 16px;
+
+  a {
+    color: unset;
+    text-decoration: none;
+    transition: color 75ms ease;
+  
+    &:hover, &:focus {
+      text-decoration: none;
+      color: $dark-orange;
+    }
+  }
+}

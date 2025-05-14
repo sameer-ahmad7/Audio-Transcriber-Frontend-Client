@@ -1,0 +1,97 @@
+<div class="modal-header">
+  <h5 class="modal-title">Edit Reel</h5>
+  <button
+    type="button"
+    class="close"
+    (click)="modal.dismiss()"
+    aria-label="Close"
+  >
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<div class="modal-body">
+  <form class="w-100" [formGroup]="editReelForm">
+    <div class="form-group required">
+      <label for="reelName">Name</label>
+      <input
+        type="text"
+        placeholder="Reel Name"
+        class="form-control"
+        id="reelName"
+        formControlName="name"
+        required
+      />
+    </div>
+    <div class="form-group required">
+      <label for="reelNote">Notes</label>
+      <input
+        type="text"
+        placeholder="Reel Notes"
+        class="form-control"
+        id="reelNotes"
+        required
+        formControlName="notes"
+      />
+    </div>
+
+    <mat-accordion
+      cdkDropList
+      (cdkDropListDropped)="ChangeOrder($event)"
+      *ngIf="this.Snippets"
+    >
+      <mat-expansion-panel
+        *ngFor="let snippet of this.Snippets; let i = index"
+        cdkDrag
+      >
+        <mat-expansion-panel-header>
+          <mat-panel-title> {{ snippet?.Title }} </mat-panel-title>
+        </mat-expansion-panel-header>
+
+        <input
+          [value]="snippet.Title"
+          type="text"
+          placeholder="Snippet Name"
+          class="form-control"
+        />
+
+        <p class="mt-2">{{ snippet.SnippetMetadata?.Text }}</p>
+
+        <div class="d-flex flex-row-reverse mt-3 form-group">
+          <button (click)="SaveSnippet(snippet)" class="btn btn-success">
+            Save
+          </button>
+          <button
+            [disabled]="SnippetDeleting"
+            (click)="DeleteSnippet(snippet, i)"
+            class="mr-2 btn btn-danger"
+          >
+            <ng-container [ngSwitch]="SnippetDeleting">
+              <fa-duotone-icon
+                *ngSwitchCase="true"
+                [icon]="['fad', 'spinner']"
+                [fixedWidth]="true"
+                [pulse]="true"
+              >
+              </fa-duotone-icon>
+              Delete
+            </ng-container>
+          </button>
+        </div>
+      </mat-expansion-panel>
+    </mat-accordion>
+
+    <div class="modal-footer">
+      <button type="button" class="btn btn-secondary" (click)="modal.dismiss()">
+        Cancel
+      </button>
+      <button
+        [disabled]="editReelForm.invalid"
+        type="button"
+        class="btn btn-success"
+        (click)="EditReel()"
+      >
+        Save
+      </button>
+    </div>
+  </form>
+</div>

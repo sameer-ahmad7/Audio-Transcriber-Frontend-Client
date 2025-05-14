@@ -1,0 +1,8 @@
+<h1 class="page-header">Sizzle Reels</h1>
+<app-reel-list
+  (deleteReel)="DeleteReel($event)"
+  (editReel)="EditReel($event)"
+  [Reels]="Reels$ | async"
+  [ReelDeleting]="ReelDeleting$ | async"
+  [ReelUpdating]="ReelUpdating$ | async"
+></app-reel-list>

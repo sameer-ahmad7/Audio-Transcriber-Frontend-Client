@@ -1,0 +1,8 @@
+.compose-card {
+  max-width: 300px;
+}
+
+.form-group.required label:after {
+  content: "*";
+  color: red;
+}

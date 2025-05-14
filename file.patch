@@ -1,0 +1,438 @@
+diff --git a/angular.json b/angular.json
+index 12a39d4..8311308 100644
+--- a/angular.json
++++ b/angular.json
+@@ -1,172 +1,194 @@
+ {
+-    "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
+-    "version": 1,
+-    "newProjectRoot": "projects",
+-    "projects": {
+-        """-webclient": {
+-            "projectType": "application",
+-            "schematics": {
+-                "@schematics/angular:component": {
+-                    "style": "scss"
+-                }
++  "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
++  "version": 1,
++  "newProjectRoot": "projects",
++  "projects": {
++    """-webclient": {
++      "projectType": "application",
++      "schematics": {
++        "@schematics/angular:component": {
++          "style": "scss"
++        }
++      },
++      "root": "",
++      "sourceRoot": "src",
++      "prefix": "app",
++      "architect": {
++        "build": {
++          "builder": "@angular-devkit/build-angular:browser",
++          "options": {
++            "allowedCommonJsDependencies": [
++              "lodash",
++              "uuid",
++              "zone.js/dist/zone-error",
++              "util",
++              "ulid",
++              "zen-push",
++              "@aws-sdk/credential-provider-cognito-identity",
++              "@aws-sdk/event""-serde-config-resolver",
++              "crypto-js",
++              "@aws-sdk/event""-marshaller",
++              "buffer",
++              "js-cookie",
++              "@aws-crypto",
++              "zen-observable",
++              "@aws-sdk/util-utf8-node",
++              "@aws-crypto/sha256-js",
++              "@aws-sdk/util-buffer-from",
++              "@aws-sdk/smithy-client",
++              "@aws-sdk/middleware-serde",
++              "@aws-sdk/middleware-user-agent",
++              "@aws-sdk/middleware-retry",
++              "@aws-sdk/middleware-signing",
++              "@aws-sdk/middleware-content-length",
++              "@aws-sdk/middleware-host-header",
++              "@aws-sdk/config-resolver",
++              "@aws-sdk/s3-request-presigner",
++              "@aws-sdk/util-format-url",
++              "@aws-sdk/util-create-request",
++              "@aws-sdk/property-provider",
++              "axios",
++              "@aws-sdk/fetch-http-handler",
++              "@aws-sdk/protocol-http",
++              "@aws-sdk/querystring-builder",
++              "@aws-sdk/util-utf8-browser",
++              "@aws-sdk/url-parser-browser",
++              "@aws-crypto/sha256-browser",
++              "@aws-sdk/url-parser-node",
++              "@aws-sdk/util-uri-escape",
++              "@aws-sdk/middleware-sdk-s3",
++              "@aws-sdk/middleware-bucket-endpoint",
++              "@aws-sdk/querystring-parser",
++              "@aws-sdk/middleware-apply-body-checksum",
++              "@aws-sdk/middleware-ssec",
++              "@aws-sdk/middleware-expect-continue",
++              "fast-xml-parser",
++              "@aws-sdk/xml-builder",
++              "@aws-sdk/md5-js",
++              "@aws-sdk/hash-blob-browser",
++              "@aws-sdk/event""-serde-browser",
++              "@aws-sdk/middleware-location-constraint"
++            ],
++            "outputPath": "dist/""-webclient",
++            "index": "src/index.html",
++            "main": "src/main.ts",
++            "polyfills": "src/polyfills.ts",
++            "tsConfig": "tsconfig.app.json",
++            "aot": false,
++            "assets": [
++              "src/favicon.ico",
++              "src/assets"
++            ],
++            "styles": [
++              "src/app/scss/styles.scss"
++            ],
++            "stylePreprocessorOptions": {
++              "includePaths": [
++                "src/app/scss"
++              ]
+             },
+-            "root": "",
+-            "sourceRoot": "src",
+-            "prefix": "app",
+-            "architect": {
+-                "build": {
+-                    "builder": "@angular-devkit/build-angular:browser",
+-                    "options": {
+-                        "allowedCommonJsDependencies": [
+-                            "lodash",
+-                            "uuid",
+-                            "zone.js/dist/zone-error",
+-                            "util",
+-                            "ulid",
+-                            "zen-push",
+-                            "@aws-sdk/credential-provider-cognito-identity",
+-                            "@aws-sdk/event""-serde-config-resolver",
+-                            "crypto-js",
+-                            "@aws-sdk/event""-marshaller",
+-                            "buffer",
+-                            "js-cookie",
+-                            "@aws-crypto",
+-                            "zen-observable",
+-                            "@aws-sdk/util-utf8-node",
+-                            "@aws-crypto/sha256-js",
+-                            "@aws-sdk/util-buffer-from",
+-                            "@aws-sdk/smithy-client",
+-                            "@aws-sdk/middleware-serde",
+-                            "@aws-sdk/middleware-user-agent",
+-                            "@aws-sdk/middleware-retry",
+-                            "@aws-sdk/middleware-signing",
+-                            "@aws-sdk/middleware-content-length",
+-                            "@aws-sdk/middleware-host-header",
+-                            "@aws-sdk/config-resolver",
+-                            "@aws-sdk/s3-request-presigner",
+-                            "@aws-sdk/util-format-url",
+-                            "@aws-sdk/util-create-request",
+-                            "@aws-sdk/property-provider",
+-                            "axios",
+-                            "@aws-sdk/fetch-http-handler",
+-                            "@aws-sdk/protocol-http",
+-                            "@aws-sdk/querystring-builder",
+-                            "@aws-sdk/util-utf8-browser",
+-                            "@aws-sdk/url-parser-browser",
+-                            "@aws-crypto/sha256-browser",
+-                            "@aws-sdk/url-parser-node",
+-                            "@aws-sdk/util-uri-escape",
+-                            "@aws-sdk/middleware-sdk-s3",
+-                            "@aws-sdk/middleware-bucket-endpoint",
+-                            "@aws-sdk/querystring-parser",
+-                            "@aws-sdk/middleware-apply-body-checksum",
+-                            "@aws-sdk/middleware-ssec",
+-                            "@aws-sdk/middleware-expect-continue",
+-                            "fast-xml-parser",
+-                            "@aws-sdk/xml-builder",
+-                            "@aws-sdk/md5-js",
+-                            "@aws-sdk/hash-blob-browser",
+-                            "@aws-sdk/event""-serde-browser",
+-                            "@aws-sdk/middleware-location-constraint"
+-                        ],
+-                        "outputPath": "dist/""-webclient",
+-                        "index": "src/index.html",
+-                        "main": "src/main.ts",
+-                        "polyfills": "src/polyfills.ts",
+-                        "tsConfig": "tsconfig.app.json",
+-                        "aot": false,
+-                        "assets": ["src/favicon.ico", "src/assets"],
+-                        "styles": ["src/app/scss/styles.scss"],
+-                        "stylePreprocessorOptions": {
+-                            "includePaths": ["src/app/scss"]
+-                        },
+-                        "scripts": []
+-                    },
+-                    "configurations": {
+-                        "production": {
+-                            "fileReplacements": [{
+-                                "replace": "src/environments/environment.ts",
+-                                "with": "src/environments/environment.prod.ts"
+-                            }],
+-                            "optimization": true,
+-                            "outputHashing": "all",
+-                            "sourceMap": false,
+-                            "extractCss": true,
+-                            "namedChunks": false,
+-                            "extractLicenses": true,
+-                            "vendorChunk": false,
+-                            "buildOptimizer": false,
+-                            "budgets": [{
+-                                    "type": "initial",
+-                                    "maximumWarning": "10mb",
+-                                    "maximumError": "12mb"
+-                                },
+-                                {
+-                                    "type": "anyComponentStyle",
+-                                    "maximumWarning": "6kb",
+-                                    "maximumError": "10kb"
+-                                }
+-                            ]
+-                        }
+-                    }
+-                },
+-                "serve": {
+-                    "builder": "@angular-devkit/build-angular:dev-server",
+-                    "options": {
+-                        "browserTarget": """-webclient:build"
+-                    },
+-                    "configurations": {
+-                        "production": {
+-                            "browserTarget": """-webclient:build:production"
+-                        }
+-                    }
+-                },
+-                "extract-i18n": {
+-                    "builder": "@angular-devkit/build-angular:extract-i18n",
+-                    "options": {
+-                        "browserTarget": """-webclient:build"
+-                    }
+-                },
+-                "test": {
+-                    "builder": "@angular-devkit/build-angular:karma",
+-                    "options": {
+-                        "main": "src/test.ts",
+-                        "polyfills": "src/polyfills.ts",
+-                        "tsConfig": "tsconfig.spec.json",
+-                        "karmaConfig": "karma.conf.js",
+-                        "assets": ["src/favicon.ico", "src/assets"],
+-                        "styles": ["src/app/scss/styles.scss"],
+-                        "stylePreprocessorOptions": {
+-                            "includePaths": ["src/app/scss"]
+-                        },
+-                        "scripts": []
+-                    }
+-                },
+-                "lint": {
+-                    "builder": "@angular-devkit/build-angular:tslint",
+-                    "options": {
+-                        "tsConfig": [
+-                            "tsconfig.app.json",
+-                            "tsconfig.spec.json",
+-                            "e2e/tsconfig.json"
+-                        ],
+-                        "exclude": ["**/node_modules/**"]
+-                    }
++            "scripts": []
++          },
++          "configurations": {
++            "production": {
++              "fileReplacements": [
++                {
++                  "replace": "src/environments/environment.ts",
++                  "with": "src/environments/environment.prod.ts"
++                }
++              ],
++              "optimization": true,
++              "outputHashing": "all",
++              "sourceMap": false,
++              "extractCss": true,
++              "namedChunks": false,
++              "extractLicenses": true,
++              "vendorChunk": false,
++              "buildOptimizer": false,
++              "budgets": [
++                {
++                  "type": "initial",
++                  "maximumWarning": "10mb",
++                  "maximumError": "12mb"
+                 },
+-                "e2e": {
+-                    "builder": "@angular-devkit/build-angular:protractor",
+-                    "options": {
+-                        "protractorConfig": "e2e/protractor.conf.js",
+-                        "devServerTarget": """-webclient:serve"
+-                    },
+-                    "configurations": {
+-                        "production": {
+-                            "devServerTarget": """-webclient:serve:production"
+-                        }
+-                    }
++                {
++                  "type": "anyComponentStyle",
++                  "maximumWarning": "6kb",
++                  "maximumError": "10kb"
+                 }
++              ]
++            }
++          }
++        },
++        "serve": {
++          "builder": "@angular-devkit/build-angular:dev-server",
++          "options": {
++            "browserTarget": """-webclient:build"
++          },
++          "configurations": {
++            "production": {
++              "browserTarget": """-webclient:build:production"
++            }
++          }
++        },
++        "extract-i18n": {
++          "builder": "@angular-devkit/build-angular:extract-i18n",
++          "options": {
++            "browserTarget": """-webclient:build"
++          }
++        },
++        "test": {
++          "builder": "@angular-devkit/build-angular:karma",
++          "options": {
++            "main": "src/test.ts",
++            "polyfills": "src/polyfills.ts",
++            "tsConfig": "tsconfig.spec.json",
++            "karmaConfig": "karma.conf.js",
++            "assets": [
++              "src/favicon.ico",
++              "src/assets"
++            ],
++            "styles": [
++              "src/app/scss/styles.scss"
++            ],
++            "stylePreprocessorOptions": {
++              "includePaths": [
++                "src/app/scss"
++              ]
++            },
++            "scripts": []
++          }
++        },
++        "lint": {
++          "builder": "@angular-devkit/build-angular:tslint",
++          "options": {
++            "tsConfig": [
++              "tsconfig.app.json",
++              "tsconfig.spec.json",
++              "e2e/tsconfig.json"
++            ],
++            "exclude": [
++              "**/node_modules/**"
++            ]
++          }
++        },
++        "e2e": {
++          "builder": "@angular-devkit/build-angular:protractor",
++          "options": {
++            "protractorConfig": "e2e/protractor.conf.js",
++            "devServerTarget": """-webclient:serve"
++          },
++          "configurations": {
++            "production": {
++              "devServerTarget": """-webclient:serve:production"
+             }
++          }
+         }
+-    },
+-    "defaultProject": """-webclient"
++      }
++    }
++  },
++  "defaultProject": """-webclient",
++  "cli": {
++    "analytics": "f14f9d26-c8f1-4337-8f57-11280ecc8bf6"
++  }
+ }
+\ No newline at end of file
+diff --git a/src/app/models/api.ts b/src/app/models/api.ts
+index b66fac3..dedd210 100644
+--- a/src/app/models/api.ts
++++ b/src/app/models/api.ts
+@@ -1,5 +1,6 @@
+ import { Session, SessionStatus } from './session';
+ import { Tennant, TennantUser } from './tennant';
++import { Card } from './stripe';
+
+ export type GetSessionsReq = Readonly<{}>;
+ export type GetSessionsResp = Readonly<{
+@@ -47,6 +48,24 @@ export type GetTennantsResp = Readonly<{
+   Tennants: Tennant[],
+ }>;
+
++// MONETIZE REQ/RES
++export type GetPaymentMethodsReq = Readonly<{}>;
++export type GetPaymentMethodsResp = Readonly<{
++  PaymentMethods: Card[],
++}>;
++
++export type AddNewCardReq = Readonly<{}>;
++export type AddNewCardResp = Readonly<{
++  Message: string,
++}>;
++
++export type PaymentChargeReq = Readonly<{}>;
++export type PaymentChargeResp = Readonly<{
++  ChargeId: string,
++  Amount: number
++}>;
++
++// MONETIZE REQ/RES
+ export const TennantTypeCompany: string = "Company";
+ export const TennantTypePersonal: string = "Personal";
+
+diff --git a/src/app/models/index.ts b/src/app/models/index.ts
+index 513196e..ee44d4f 100644
+--- a/src/app/models/index.ts
++++ b/src/app/models/index.ts
+@@ -5,4 +5,5 @@ export * from './tennant';
+ export * from './transcript';
+ export * from './user';
+ export * from './ws';
++export * from './stripe';
+
+diff --git a/src/app/services/api.service.ts b/src/app/services/api.service.ts
+index 3484768..2d68f79 100644
+--- a/src/app/services/api.service.ts
++++ b/src/app/services/api.service.ts
+@@ -14,6 +14,7 @@ const apiUrl: string = environment.api.xcr.url;
+ const sessionUrl: string = `${apiUrl}/sessions`;
+ const userUrl: string = `${apiUrl}/users`;
+ const tennantUrl: string = `${apiUrl}/tennants`;
++const monetize: string = `${apiUrl}/monetize`;
+
+ @Injectable({
+   providedIn: 'root'
+@@ -70,6 +71,14 @@ export class ApiService {
+     return this.http.put<StartTranscriptionResp>(`${sessionUrl}/${req.SessionId}/transcript`, {});
+   }
+
++  // MONETIZE ROUTES
++  public getPaymentMethods$(req: GetUserWsTicketReq): Observable<GetUserWsTicketResp> {
++    return this.http.get<GetUserWsTicketResp>(`${userUrl}/ws-ticket`, req);
++  }
++  public checkout$(req: GetUserWsTicketReq): Observable<GetUserWsTicketResp> {
++    return this.http.get<GetUserWsTicketResp>(`${userUrl}/ws-ticket`, req);
++  }
++  // MONETIZE ROUTES
+   // USER ROUTES
+   public GetUserWsTicket$(req: GetUserWsTicketReq): Observable<GetUserWsTicketResp> {
+     return this.http.get<GetUserWsTicketResp>(`${userUrl}/ws-ticket`, req);

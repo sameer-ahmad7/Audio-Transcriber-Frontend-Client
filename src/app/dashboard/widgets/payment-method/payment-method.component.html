@@ -1,0 +1,49 @@
+<ng-container *ngIf="Card$ | async as card;else addCard">
+  <div class="d-flex justify-content-between">
+    <h4>Card No.</h4>
+  </div>
+
+  <div class="d-flex justify-content-between">
+    <h6>**** **** **** {{ card.card.last4 }}</h6>
+  </div>
+
+  <div class="d-flex flex-row-reverse">
+    <button
+      [disabled]="Loading$ | async"
+      (click)="PayAmount(card.id)"
+      type="button"
+      class="ml-1 btn btn-success"
+    >
+      <ng-container [ngSwitch]="Loading$ | async">
+        <fa-duotone-icon
+          *ngSwitchCase="true"
+          [icon]="['fad', 'spinner']"
+          [fixedWidth]="true"
+          [pulse]="true"
+        >
+        </fa-duotone-icon>
+      </ng-container>
+      Pay {{ Cost | currency }}
+    </button>
+    <button
+      [disabled]="Loading$ | async"
+      (click)="ChangePayment()"
+      type="button"
+      class="btn btn-primary"
+    >
+      Change Payment Method
+    </button>
+  </div>
+</ng-container>
+
+<ng-template #addCard>
+  <button
+  [disabled]="Loading$ | async"
+  (click)="ChangePayment()"
+  type="button"
+  class="btn btn-primary"
+>
+  Change Payment Method
+</button>
+
+</ng-template>

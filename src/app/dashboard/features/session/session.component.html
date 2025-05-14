@@ -1,0 +1,11 @@
+<app-session-view
+                  (exportTranscript)="OnExportTranscript($event)"
+                  (transcribe)="OnTranscribe($event)"
+                  (snippet)="OnSnippet($event)"
+                  [transcriptExists]="TranscriptExists$|async"
+                  [transcriptLoading]="TranscriptLoading$|async"
+                  [transcript]="Transcript$|async"
+                  [session]="Session$|async"
+                  [sessionsLoading]="Loading$|async"
+                  [view]="View$|async">
+</app-session-view>

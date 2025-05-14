@@ -1,0 +1,62 @@
+<ng-container [ngSwitch]="Loading()">
+    <app-loading-splash *ngSwitchCase="true"></app-loading-splash>
+    <ng-container *ngSwitchDefault>
+        <ng-content *ngTemplateOutlet="tplLoaded"></ng-content>
+    </ng-container>
+</ng-container>
+
+
+<ng-template #tplLoaded>
+    <div class="card">
+        <div class="card-body">
+            <ng-content *ngTemplateOutlet="tplCardHeader"></ng-content>
+        </div>
+        <div class="card-body pt-0">
+            <ng-content *ngTemplateOutlet="tplMembersPanel"></ng-content>
+        </div>
+    </div>
+</ng-template>
+
+<ng-template #tplCardHeader>
+    <div class="container-fluid">
+        <div class="row border-bottom">
+            <div class="col-1"><app-tenant-type-icon [tenant]="tenant" [size]="'3x'"></app-tenant-type-icon></div>
+            <div class="col-8">
+                <div class="row">
+                    <h5 class="card-title">{{tenant.Name}}</h5>
+                </div>
+                <div class="row">
+                    <h6 class="card-subtitle mb-2 text-muted">
+                        {{tenant.Type|titlecase}} Tenant
+                    </h6>
+                </div>
+            </div>
+            <div class="col-3">
+                <ng-template #tplAddMembersTooltip>
+                    <span>Add members to <b>{{tenant.Name}}</b> tenant.</span>
+                </ng-template>
+                <button class="btn btn-outline-success" [ngbTooltip]="tplAddMembersTooltip" (click)="OnAddMembers()" >Add Members</button>
+            </div>
+        </div>
+    </div>
+</ng-template>
+
+<ng-template #tplMembersPanel>
+    <h6>{{users.length}} Members</h6>
+    <table class="table table-sm table-hover">
+        <thead class="background-color-grey-1">
+            <th scope="col">Name</th>
+            <th scope="col">Email</th>
+            <th scope="col">Tenant Permissions</th>
+            <th scope="col"></th>
+        </thead>
+        <tbody>
+            <tr *ngFor="let u of users">
+                <td>{{u.User?.FirstName}} {{u.User?.LastName}}</td>
+                <td>{{u.User?.Email}}</td>
+                <td><app-member-roles-cell [user]="u"></app-member-roles-cell></td>
+            </tr>
+        </tbody>
+    </table>
+</ng-template>
+

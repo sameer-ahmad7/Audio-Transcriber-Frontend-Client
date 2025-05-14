@@ -1,0 +1,71 @@
+<div class="container d-flex justify-content-around">
+  <nav class="navbar navbar-expand navbar-dark w-100 mx-5">
+    <div class="navbar-brand">
+      <img [attr.src]="logo" [attr.alt]="'""'" width="30" height="30" > ""
+    </div>
+    <div class="flex-grow-1"></div>
+    <div
+      class="collapse navbar-collapse mr-auto justify-content-center"
+      id="navbarSupportedContent"
+    >
+      <ul class="navbar-nav" ngbNav>
+        <li
+          class="nav-item"
+          [ngClass]="{ active: (ViewMode$ | async) == ViewMode.Login }"
+        >
+          <a class="nav-link" (click)="SetLandingMode(ViewMode.Login)">Login</a>
+        </li>
+        <li
+          class="nav-item"
+          [ngClass]="{ active: (ViewMode$ | async) == ViewMode.Register }"
+        >
+          <a class="nav-link" (click)="SetLandingMode(ViewMode.Register)"
+            >Register</a
+          >
+        </li>
+      </ul>
+    </div>
+  </nav>
+</div>
+
+<div
+  class="d-flex color-white-1 flex-grow-1 p-3 mx-auto text-center w-100 justify-content-around align-items-center flex-column"
+>
+  <h1>"" Insights Lake</h1>
+  <div
+    class="m-4 p-4 text-center text-small d-flex justify-content-around w-100 flex-grow-1"
+  >
+    <ng-container [ngSwitch]="ViewMode$ | async">
+      <app-login-panel
+        *ngSwitchCase="ViewMode.Login"
+        (changeLandingMode)="OnChangeLandingMode($event)"
+        [identityConfirmation]="IdentityConfirmation$ | async"
+      >
+      </app-login-panel>
+      <app-register-panel *ngSwitchCase="ViewMode.Register">
+      </app-register-panel>
+      <app-confirm-panel
+        *ngSwitchCase="ViewMode.ConfirmRegistration"
+        [identityConfirmation]="IdentityConfirmation$ | async"
+      >
+      </app-confirm-panel>
+      <app-change-password-panel
+        *ngSwitchCase="ViewMode.ForgotPassword"
+        (changeLandingMode)="OnChangeLandingMode($event)"
+        (resetPassword)="onResetPassword($event)"
+        [loading]="AuthLoading$ | async"
+        [identityConfirmation]="IdentityConfirmation$ | async"
+      >
+      </app-change-password-panel>
+      <app-reset-panel
+        *ngSwitchCase="ViewMode.ChangePasswordWithCode"
+        (changeLandingMode)="OnChangeLandingMode($event)"
+        (changePasswordWithCode)="onChangePasswordWithCode($event)"
+        [identityConfirmation]="IdentityConfirmation$ | async"
+        [loading]="AuthLoading$ | async"
+      ></app-reset-panel>
+    </ng-container>
+  </div>
+
+  <span>Copyright 2020 ""AI, LLC</span>
+</div>

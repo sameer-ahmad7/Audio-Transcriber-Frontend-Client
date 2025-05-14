@@ -1,0 +1,84 @@
+//Main Theme Colors
+$clr-white-1: white;
+$clr-black-1: #1c1c1c;
+$clr-black-2: #2d2d2d;
+$clr-grey-1: #fafafa; // inactive backgrounds
+$clr-grey-2: #eaeaea; // borders
+$clr-grey-3: #adadad;
+$clr-grey-4: #575d68;
+$clr-green-1: #5dbb00;
+$clr-red-1: #e81123;
+$clr-red-2: #691018;
+$clr-yellow-1: #ffda2f;
+$clr-yellow-2: rgb(245, 220, 122);
+$clr-yellow-3: rgb(143, 115, 5);
+$clr-blue-1: #4070b2;
+$clr-blue-2: #cfe1fa;
+$clr-blue-3: #03507d;
+
+$light-black: #575d68;
+$black: #2d2d2d;
+$dark-black: #1c1c1c;
+
+$light-orange: #ff7417;
+$orange: #fd6a02;
+$dark-orange: #f05e23; 
+
+$pale-blue: #cfe1fa;
+$light-blue: #0080ff;
+$blue: #1034a6;
+$dark-blue: #000080;
+
+$green: #5dbb00;
+
+$theme-colors: (
+  "light-black": $light-black,
+  "black": $black,
+  "dark-black": $dark-black,
+
+  "light-orange": $light-orange,
+  "orange": $orange,
+  "dark-orange ": $dark-orange ,
+  
+  "pale-blue": $pale-blue,
+  "light-blue": $light-blue,
+  "blue": $blue,
+  "dark-blue": $dark-blue,
+  
+  "green": $green,
+
+  "warning-lt": $clr-yellow-2,
+  "warning-dk": $clr-yellow-3,
+  "white-1": $clr-white-1,
+  "black-1": $clr-black-1,
+  "black-2": $clr-black-2,
+  "grey-1": $clr-grey-1,
+  "grey-2": $clr-grey-2,
+  "grey-3": $clr-grey-3,
+  "grey-4": $clr-grey-4,
+  "green-1": $clr-green-1,
+  "red-1": $clr-red-1,
+  "red-2": $clr-red-2,
+  "yellow-1": $clr-yellow-1,
+  "yellow-2": $clr-yellow-2,
+  "yellow-3": $clr-yellow-3,
+  "blue-1": $clr-blue-1,
+  "blue-2": $clr-blue-2,
+);
+@each $name, $color in $theme-colors {
+  .color-#{$name} {
+    color: $color !important;
+  }
+  .background-color-#{$name} {
+    background-color: $color;
+  }
+  .bg-#{$name} {
+    background-color: $color;
+  }
+  .border-color-#{$name} {
+    border-color: $color;
+  }
+  .border-#{$name} {
+    border: 1px solid $color;
+  }
+}

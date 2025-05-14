@@ -1,0 +1,15 @@
+<app-loading-splash *ngIf="loading; else ready"></app-loading-splash>
+
+<ng-template #ready>
+  <ul class="list-group">
+    <li class="list-group-item" *ngFor="let session of sessions">
+      <app-recordings-list-item
+        (exportTranscript)="exportTranscript.emit($event)"
+        (transcribe)="transcribe.emit($event)"
+        (dropFile)="dropFiles.emit([$event])"
+        [session]="session"
+      >
+      </app-recordings-list-item>
+    </li>
+  </ul>
+</ng-template>

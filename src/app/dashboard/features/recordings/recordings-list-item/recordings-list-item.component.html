@@ -1,0 +1,56 @@
+<div class="d-flex align-items-center item-columns">
+  <ng-content *ngTemplateOutlet="tplIconCol"></ng-content>
+  <ng-content *ngTemplateOutlet="tplBodyCol"></ng-content>
+  <ng-content *ngTemplateOutlet="tplToolsCol"></ng-content>
+</div>
+
+<ng-template #tplIconCol>
+  <div class="align-self-baseline mr-0">
+    <fa-duotone-icon
+      [icon]="['fad', 'cassette-tape']"
+      [fixedWidth]="true"
+      [size]="'2x'"
+    ></fa-duotone-icon>
+  </div>
+</ng-template>
+
+<ng-template #tplBodyCol>
+  <div class="d-flex justify-content-center align-items-center">
+    <div class="d-flex ml-2 flex-column">
+      <a
+        [routerLink]="'/dashboard/session/' + session.SessionId"
+        [queryParams]="{ view: 'info' }"
+      >
+        <h4 class="color-tp-header">
+          <app-session-label
+            [label]="'name'"
+            [session]="session"
+          ></app-session-label>
+        </h4>
+      </a>
+      <app-session-flags [session]="session"></app-session-flags>
+      <mat-chip-list *ngIf="session.Tags" aria-label="Session Tags">
+        <mat-chip *ngFor="let tag of session.Tags">{{ tag }}</mat-chip>
+      </mat-chip-list>
+    </div>
+    <div *ngIf="session.Starred" class="d-flex">
+      <fa-icon class="starred" [icon]="['far', 'star']"></fa-icon>
+    </div>
+  </div>
+</ng-template>
+
+<ng-template #tplToolsCol>
+  <div
+    class="ml-auto w-25 d-flex flex-column align-items-center justify-content-center"
+  >
+    <app-session-actions
+      (exportTranscript)="exportTranscript.emit($event)"
+      (transcribe)="transcribe.emit($event)"
+      [session]="session"
+    ></app-session-actions>
+  </div>
+</ng-template>
+
+<ng-template #tplNoMediaTool>
+  <ng-container *ngIf="session.UiStatus != undefined"></ng-container>
+</ng-template>

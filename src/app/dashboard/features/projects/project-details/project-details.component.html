@@ -1,0 +1,93 @@
+<ng-container *ngIf="Project$ | async as project">
+
+  <div class="d-flex flex-row" >
+
+  </div>
+    <a  href ="/dashboard/projects" >
+      Home
+    </a>
+    <i class="fas fa-chevron-right"
+       style="width: 10px;"
+    ></i>
+     <div class="h-100 d-inline-block ">
+
+     {{ project.Name }}
+
+     </div>
+
+
+  <div class="d-block pt-2 background-color-white">
+    <div class="row">
+      <div class="col-md-9">
+        <ng-container *ngTemplateOutlet="dataTable"></ng-container>
+      </div>
+      <div class="col-md-3">
+        <ng-container *ngTemplateOutlet="editTools"></ng-container>
+      </div>
+    </div>
+
+
+    </div>
+
+  <ng-template #dataTable>
+
+        <div style="margin-top: 20px;">
+    <app-recordings
+    [projectId]="project.ProjectID">
+    </app-recordings>
+  </div>
+
+  </ng-template>
+
+  <ng-template #editTools>
+    <div class="card tools-card">
+      <div class="card-body">
+        <h5 class="card-title">Actions</h5>
+        <div class="d-flex flex-column">
+          <div class="d-flex flex-column align-items-center">
+
+
+          </div>
+
+            <button
+              [disabled]="ProjectUpdating$ | async"
+              (click)="EditProject(project.ProjectID, project.Name)"
+              type="button"
+              class="mt-1 btn btn-outline-success"
+            >
+              <ng-container [ngSwitch]="ProjectUpdating$ | async">
+                <fa-icon
+                  [icon]="['far', 'pencil']"
+                  *ngSwitchCase="false"
+                  [fixedWidth]="true"
+                >
+                </fa-icon>
+                <fa-duotone-icon
+                  *ngSwitchCase="true"
+                  [icon]="['fad', 'spinner']"
+                  [fixedWidth]="false"
+                  [pulse]="true"
+                >
+                </fa-duotone-icon>
+              </ng-container>
+              Edit
+            </button>
+
+            <button
+            (click)="DeleteProject(project.ProjectID)"
+            type="button"
+            class="mt-1 btn btn-outline-danger"
+          >
+            <fa-icon [icon]="['far', 'trash']" [fixedWidth]="true"> </fa-icon>
+            Delete
+          </button>
+
+          </div>
+        </div>
+      </div>
+
+
+
+  </ng-template>
+
+</ng-container>
